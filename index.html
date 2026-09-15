@@ -358,4 +358,69 @@ function renderExpenses(){
 }
 
 function adjQty(id,d){var p=products.find(function(x){return x.id===id;});if(!p)return;p.quantity=Math.max(0,(p.quantity||0)+d);saveP();refUI();}
-function delProd(id){if(
+function delProd(id){if(confirm('Delete this product permanently?')){products=products.filter(function(p){return p.id!==id;});saveP();if(editingId===id)resetF();refUI();}}
+function delExp(id){if(confirm('Delete this expense?')){expenses=expenses.filter(function(e){return e.id!==id;});saveE();refUI();}}
+function startEdit(id){var p=products.find(function(x){return x.id===id;});if(!p)return;editingId=id;nameInput.value=p.name||'';categoryInput.value=p.category||'';buyingInput.value=p.buyingPrice!==undefined?p.buyingPrice:'';sellingInput.value=p.sellingPrice!==undefined?p.sellingPrice:'';quantityInput.value=p.quantity!==undefined?p.quantity:0;formTitle.textContent='✎ Edit product';submitBtn.textContent='Update product';cancelEditBtn.style.display='inline-flex';updPP();form.scrollIntoView({behavior:'smooth',block:'center'});}
+function resetF(){editingId=null;form.reset();formTitle.textContent='➕ Add new product';submitBtn.textContent='Save product';cancelEditBtn.style.display='none';updPP();}
+function resetExpForm(){expenseForm.reset();}
+function updPP(){var b=parseFloat(buyingInput.value)||0;var s=parseFloat(sellingInput.value)||0;var q=parseInt(quantityInput.value)||0;unitPP.textContent=fmt(s-b);batchPP.textContent=fmt((s-b)*q);}
+function refUI(){updDash();renderTable();renderSales();renderExpenses();if(editingId&&!products.some(function(p){return p.id===editingId;}))resetF();}
+function openSell(id){var p=products.find(function(x){return x.id===id;});if(!p||(p.quantity||0)<=0)return;sellingProductId=id;sellProductName.textContent=p.name+' · '+p.quantity+' in stock';sellQuantity.value=1;sellQuantity.max=p.quantity;updSellPP();sellModal.classList.add('show');}
+function closeSell(){sellModal.classList.remove('show');sellingProductId=null;}
+function updSellPP(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(sellQuantity.value)||1);sellTotalPreview.textContent=fmt(q*(p.sellingPrice||0));sellProfitPreview.textContent=fmt(q*((p.sellingPrice||0)-(p.buyingPrice||0)));}
+function confirmSale(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(sellQuantity.value)||1);if(q>p.quantity){alert('Not enough stock. Only '+p.quantity+' available.');return;}
+  var sale={id:gid(),productId:p.id,productName:p.name,quantity:q,sellingPrice:p.sellingPrice,buyingPrice:p.buyingPrice,totalSale:q*p.sellingPrice,profit:q*(p.sellingPrice-p.buyingPrice),timestamp:new Date().toISOString(),dateKey:todayKey()};
+  sales.push(sale);p.quantity-=q;saveS();saveP();closeSell();refUI();
+}
+
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var name=nameInput.value.trim();
+  var category=categoryInput.value.trim()||'Other';
+  var buyingPrice=parseFloat(buyingInput.value);
+  var sellingPrice=parseFloat(sellingInput.value);
+  var quantity=parseInt(quantityInput.value,10);
+  if(!name){alert('Please enter a product name.');return;}
+  if(isNaN(buyingPrice)||buyingPrice<0){alert('Buying price must be a positive number.');return;}
+  if(isNaN(sellingPrice)||sellingPrice<0){alert('Selling price must be a positive number.');return;}
+  if(isNaN(quantity)||quantity<0){alert('Quantity must be zero or greater.');return;}
+  if(editingId){
+    var idx=products.findIndex(function(p){return p.id===editingId;});
+    if(idx!==-1){products[idx].name=name;products[idx].category=category;products[idx].buyingPrice=buyingPrice;products[idx].sellingPrice=sellingPrice;products[idx].quantity=quantity;}
+  }else{
+    products.push({id:gid(),name:name,category:category,buyingPrice:buyingPrice,sellingPrice:sellingPrice,quantity:quantity});
+  }
+  saveP();resetF();refUI();
+});
+
+expenseForm.addEventListener('submit',function(e){
+  e.preventDefault();
+  var desc=expenseDesc.value.trim();
+  var cat=expenseCategory.value;
+  var amt=parseFloat(expenseAmount.value);
+  if(!desc){alert('Please enter an expense description.');return;}
+  if(isNaN(amt)||amt<=0){alert('Amount must be greater than zero.');return;}
+  var exp={id:gid(),description:desc,category:cat,amount:amt,timestamp:new Date().toISOString(),dateKey:todayKey()};
+  expenses.push(exp);saveE();resetExpForm();refUI();
+});
+
+cancelEditBtn.addEventListener('click',resetF);
+resetFormBtn.addEventListener('click',resetF);
+resetExpenseBtn.addEventListener('click',resetExpForm);
+buyingInput.addEventListener('input',updPP);
+sellingInput.addEventListener('input',updPP);
+quantityInput.addEventListener('input',updPP);
+searchInput.addEventListener('input',function(e){searchTerm=e.target.value;renderTable();});
+clearSearchBtn.addEventListener('click',function(){searchInput.value='';searchTerm='';renderTable();});
+clearSalesBtn.addEventListener('click',function(){if(sales.length===0)return;if(confirm('Clear ALL sales history? This cannot be undone.')){sales=[];saveS();refUI();}});
+clearExpensesBtn.addEventListener('click',function(){if(expenses.length===0)return;if(confirm('Clear ALL expenses? This cannot be undone.')){expenses=[];saveE();refUI();}});
+cancelSellBtn.addEventListener('click',closeSell);
+sellQuantity.addEventListener('input',updSellPP);
+confirmSellBtn.addEventListener('click',confirmSale);
+sellModal.addEventListener('click',function(e){if(e.target===sellModal)closeSell();});
+
+loadAll();refUI();resetF();updPP();
+})();
+</script>
+</body>
+</html>
