@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#1e3c72">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>My Shop · Stock & Profit Manager V0.7</title>
+<title>My Shop · Stock & Profit Manager V0.8</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);min-height:100vh;display:flex;justify-content:center;padding:16px;transition:background .3s}
@@ -152,9 +152,35 @@ tr:last-child td{border-bottom:none}
 .settings-preview .sp-shop{font-size:1.5rem;font-weight:700;color:var(--p);margin-bottom:4px}
 .settings-preview .sp-sub{font-size:.85rem;color:var(--g6)}
 .settings-preview .sp-price{font-size:1.2rem;font-weight:700;color:var(--a);margin-top:10px}
-/* LOGIN */
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--p),var(--pl))}
-.login-card{background:#fff;border-radius:20px;padding:32px 24px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+
+/* ========== LANDING PAGE (V0.8 NEW) ========== */
+.landing-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 20px;background:linear-gradient(160deg,#1e3c72 0%,#2a4a8a 50%,#6b21a8 100%);position:relative;overflow:hidden}
+.landing-wrap::before{content:'';position:absolute;top:-50%;right:-50%;width:150%;height:150%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);animation:float 20s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,20px)}}
+.landing-card{position:relative;z-index:1;max-width:520px;width:100%;text-align:center;color:#fff}
+.landing-hero{font-size:4rem;margin-bottom:8px;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.landing-card h1{font-size:2.2rem;font-weight:700;margin-bottom:10px;line-height:1.15}
+.landing-card .landing-tagline{font-size:1.05rem;opacity:.95;line-height:1.5;margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto}
+.landing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:left;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.15)}
+.landing-feature{display:flex;align-items:center;gap:12px;font-size:.95rem;padding:6px 4px}
+.landing-feature .lf-icon{font-size:1.3rem;flex:0 0 auto;width:28px;text-align:center}
+.landing-feature .lf-text{font-weight:500;opacity:.95}
+.landing-buttons{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.landing-btn{padding:16px 24px;border-radius:14px;border:none;font-weight:700;font-size:1.05rem;cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.landing-btn:active{transform:scale(.98)}
+.landing-btn.primary{background:#fff;color:var(--p);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.landing-btn.primary:hover{box-shadow:0 12px 32px rgba(0,0,0,.3);transform:translateY(-2px)}
+.landing-btn.secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.landing-btn.secondary:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.landing-footer{font-size:.85rem;opacity:.8;line-height:1.6}
+.landing-footer .badge{display:inline-block;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-weight:600;font-size:.75rem;margin-top:10px}
+.landing-badge-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.landing-badge-row .pill{font-size:.7rem;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* ========== AUTH SCREEN ========== */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--p),var(--pl));position:relative}
+.login-card{background:#fff;border-radius:20px;padding:32px 24px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative}
 .login-card h1{font-size:1.7rem;color:var(--g8);text-align:center;margin-bottom:6px}
 .login-card .login-sub{text-align:center;color:var(--g6);font-size:.9rem;margin-bottom:24px}
 .login-card label{display:block;font-size:.8rem;font-weight:600;color:var(--g6);text-transform:uppercase;margin-bottom:6px;margin-top:12px}
@@ -166,82 +192,48 @@ tr:last-child td{border-bottom:none}
 .login-card .login-msg.error{background:var(--ds);color:var(--d);display:block}
 .login-card .login-msg.success{background:var(--as);color:var(--a);display:block}
 .login-card .login-footer{text-align:center;font-size:.75rem;color:var(--g6);margin-top:20px;line-height:1.6}
-.login-card .toggle-mode{text-align:center;font-size:.85rem;color:var(--p);font-weight:600;cursor:pointer;margin-top:14px;text-decoration:underline}
+.back-link{position:absolute;top:14px;left:14px;background:transparent;border:none;color:var(--g6);font-size:.85rem;font-weight:600;cursor:pointer;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px}
+.back-link:hover{background:var(--g1);color:var(--p)}
 .hidden{display:none!important}
-@media(max-width:600px){
-  body{padding:0;padding-bottom:80px}
-  .app{padding:12px}
-  .hdr h1{font-size:1.4rem}
-  .hdr .subtitle{font-size:.8rem}
-  .dash{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-  .stat{padding:14px 12px}
-  .stat .l{font-size:.7rem}
-  .stat .v{font-size:1.15rem}
-  .card{padding:16px;margin-bottom:16px}
-  .card h2{font-size:1.1rem;margin-bottom:14px}
-  .fg{grid-template-columns:1fr}
-  .fgr.fw{grid-column:span 1}
-  .fgr input,.fgr select{padding:14px;font-size:16px}
-  .pp{grid-column:span 1;padding:10px 14px;font-size:.9rem}
-  .bg{grid-column:span 1;flex-direction:column}
-  .btn{padding:14px 18px;font-size:1rem;border-radius:12px}
-  .btn.sm{padding:10px 14px;font-size:.85rem}
-  .tb{flex-direction:column;align-items:stretch}
-  .sb{width:100%;padding:6px 6px 6px 16px}
-  .sb button{padding:10px 16px}
-  .low{flex-direction:column;align-items:flex-start;padding:12px 14px;font-size:.9rem}
-  .tr{border:none}
-  table{min-width:100%;font-size:.8rem;display:none}
-  .products-mobile{display:block}
-  .p-card{background:var(--wt);border:1px solid var(--g2);border-radius:var(--rs);padding:14px;margin-bottom:10px;position:relative}
-  .p-card.low{border-left:4px solid var(--w);background:var(--ws)}
-  .p-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-  .p-card-name{font-weight:600;color:var(--g8);font-size:1rem}
-  .p-card-cat{font-size:.7rem;background:var(--g1);color:var(--g6);padding:2px 8px;border-radius:20px;display:inline-block;margin-top:2px}
-  .p-card-nums{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.8rem;margin-bottom:12px}
-  .p-card-nums .nlabel{font-size:.7rem;color:var(--g6);text-transform:uppercase}
-  .p-card-nums .nval{font-weight:700;color:var(--g8)}
-  .p-card-nums .nval.pos{color:var(--a)}
-  .p-card-nums .nval.neg{color:var(--d)}
-  .p-card-actions{display:flex;gap:6px;flex-wrap:wrap}
-  .p-card-actions .btn{flex:1;padding:10px 8px;font-size:.85rem}
-  .p-qty{display:flex;align-items:center;gap:10px;justify-content:center;background:var(--g1);border-radius:10px;padding:6px;margin-bottom:10px}
-  .p-qty button{width:38px;height:38px;border-radius:10px;border:1px solid var(--g2);background:#fff;font-weight:700;font-size:1.2rem}
-  .p-qty .qnum{font-weight:700;min-width:36px;text-align:center}
-  .sum{grid-template-columns:1fr}
-  .rep-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .rep-card{padding:12px}
-  .rep-card .rl{font-size:.65rem}
-  .rep-card .rv{font-size:1.15rem}
-  .periods{gap:6px}
-  .pbtn{padding:9px 14px;font-size:.8rem;flex:1}
-  .daily-row{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 12px}
-  .daily-row .dvals{gap:10px;font-size:.75rem}
-  .si,.ei{padding:10px 12px}
-  .si .sname,.ei .ename{font-size:.9rem}
-  .si .smeta,.ei .emeta{font-size:.72rem}
-  .si .samt,.ei .eamt{font-size:.95rem}
-  .csv-row .btn{width:100%}
-  .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--wt);border-top:1px solid var(--g2);box-shadow:0 -4px 12px rgba(0,0,0,.06);z-index:900;padding-bottom:env(safe-area-inset-bottom)}
-  .mnav-btn{flex:1;background:transparent;border:none;padding:10px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--g6);font-size:.65rem;font-weight:600;transition:color .15s}
-  .mnav-btn.active{color:var(--p)}
-  .mnav-btn .mi2{font-size:1.3rem;line-height:1}
-  .section{display:none}
-  .section.active{display:block}
-  .ft{display:none}
-  .theme-options{grid-template-columns:repeat(5,1fr);gap:8px}
-  .currency-options{grid-template-columns:repeat(3,1fr);gap:8px}
-}
-@media(min-width:601px){.products-mobile{display:none}}
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ========== LOGIN SCREEN ========== -->
-<div id="loginScreen" class="login-wrap">
+<!-- ========== LANDING PAGE (V0.8 NEW) ========== -->
+<div id="landingScreen" class="landing-wrap">
+  <div class="landing-card">
+    <div class="landing-hero">📦</div>
+    <h1>Run your shop like a pro</h1>
+    <div class="landing-tagline">Track stock, record sales, log expenses and see your real profit — from anywhere, on any device.</div>
+    <div class="landing-badge-row">
+      <div class="pill">☁️ Cloud Sync</div>
+      <div class="pill">📱 Mobile Ready</div>
+      <div class="pill">🆓 100% Free</div>
+    </div>
+    <div class="landing-features">
+      <div class="landing-feature"><div class="lf-icon">📦</div><div class="lf-text">Track stock & automatic profit</div></div>
+      <div class="landing-feature"><div class="lf-icon">🛒</div><div class="lf-text">Record sales instantly — stock updates automatically</div></div>
+      <div class="landing-feature"><div class="lf-icon">💸</div><div class="lf-text">Log expenses and see your true profit</div></div>
+      <div class="landing-feature"><div class="lf-icon">📊</div><div class="lf-text">Reports, top sellers & 7-day insights</div></div>
+      <div class="landing-feature"><div class="lf-icon">☁️</div><div class="lf-text">Data synced across all your devices</div></div>
+    </div>
+    <div class="landing-buttons">
+      <button class="landing-btn primary" id="getStartedBtn" type="button">🚀 Get Started</button>
+      <button class="landing-btn secondary" id="goLoginBtn" type="button">🔑 Log In</button>
+    </div>
+    <div class="landing-footer">
+      Your data is private and secure.<br>
+      <div class="badge">Powered by Firebase</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== AUTH SCREEN ========== -->
+<div id="loginScreen" class="login-wrap hidden">
   <div class="login-card">
-    <h1>📦 My Shop</h1>
-    <div class="login-sub">Stock & Profit Manager V0.7</div>
+    <button class="back-link" id="backToLanding" type="button">← Back</button>
+    <h1 id="authTitle">📦 My Shop</h1>
+    <div class="login-sub" id="authSubtitle">Stock & Profit Manager V0.8</div>
     <label for="loginEmail">Email</label>
     <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
     <label for="loginPassword">Password</label>
@@ -261,7 +253,7 @@ tr:last-child td{border-bottom:none}
 <!-- ========== MAIN APP ========== -->
 <div class="app hidden" id="mainApp">
 <header class="hdr">
-<h1>📦 <span id="hdrShopName">My Shop</span> <span style="background:var(--p);">V0.7</span></h1>
+<h1>📦 <span id="hdrShopName">My Shop</span> <span style="background:var(--p);">V0.8</span></h1>
 <div class="subtitle" id="hdrSubtitle">Stock & Profit Manager</div>
 <div class="sync-status synced" id="syncStatus"><span>☁️</span><span id="syncText">Synced</span></div>
 </header>
@@ -389,7 +381,7 @@ tr:last-child td{border-bottom:none}
 <h2>⚙️ Shop Settings</h2>
 <div class="settings-preview">
 <div class="sp-shop" id="spShop">My Shop</div>
-<div class="sp-sub">Stock & Profit Manager V0.7</div>
+<div class="sp-sub">Stock & Profit Manager V0.8</div>
 <div class="sp-price" id="spPrice">R100.00</div>
 </div>
 <div class="fgr fw" style="margin-bottom:18px;">
@@ -435,7 +427,7 @@ Your data is synced to Firebase. Log in on any device to see the same data.
 </div>
 </div>
 
-<div class="ft">Data synced via Firebase · V0.7 Cloud Sync</div>
+<div class="ft">Data synced via Firebase · V0.8 with Landing Page</div>
 </div>
 
 <nav class="mobile-nav hidden" id="mobileNav">
@@ -481,58 +473,38 @@ const db = getFirestore(fbApp);
 
 var currentUser = null;
 var products=[],sales=[],expenses=[],settings={shopName:'My Shop',theme:'blue',currency:'R'},editingId=null,searchTerm='',sellingProductId=null,currentPeriod='today';
-var syncTimer=null, pendingSync=false;
+var syncTimer=null;
 
 function $(id){return document.getElementById(id);}
-var loginScreen=$('loginScreen'),mainApp=$('mainApp'),mobileNav=$('mobileNav');
+var landingScreen=$('landingScreen'),loginScreen=$('loginScreen'),mainApp=$('mainApp'),mobileNav=$('mobileNav');
 var loginEmail=$('loginEmail'),loginPassword=$('loginPassword'),loginBtn=$('loginBtn'),signupBtn=$('signupBtn'),loginMsg=$('loginMsg');
 var hdrShopName=$('hdrShopName'),syncStatus=$('syncStatus'),syncText=$('syncText');
 var userEmail=$('userEmail'),logoutBtn=$('logoutBtn'),syncNowBtn=$('syncNowBtn');
 
 function setSyncStatus(status){
-  var cls='sync-status '+status;
-  syncStatus.className=cls;
+  syncStatus.className='sync-status '+status;
   if(status==='synced')syncText.textContent='Synced';
   else if(status==='syncing')syncText.textContent='Syncing...';
   else if(status==='offline')syncText.textContent='Offline';
 }
-
-function showLoginMsg(text,type){
-  loginMsg.textContent=text;
-  loginMsg.className='login-msg '+(type||'');
-}
+function showLoginMsg(text,type){loginMsg.textContent=text;loginMsg.className='login-msg '+(type||'');}
 function hideLoginMsg(){loginMsg.className='login-msg';}
-  
+
 async function syncToCloud(){
-  if(!currentUser){return;}
+  if(!currentUser)return;
   setSyncStatus('syncing');
   try{
-    var userRef=doc(db,'users',currentUser.uid);
-    await setDoc(userRef,{
-      products:products,
-      sales:sales,
-      expenses:expenses,
-      settings:settings,
-      updatedAt:new Date().toISOString()
-    });
+    await setDoc(doc(db,'users',currentUser.uid),{products:products,sales:sales,expenses:expenses,settings:settings,updatedAt:new Date().toISOString()});
     setSyncStatus('synced');
-  }catch(err){
-    console.error('Sync error:',err);
-    setSyncStatus('offline');
-  }
+  }catch(err){console.error('Sync error:',err);setSyncStatus('offline');}
 }
-
-function scheduleSync(){
-  if(syncTimer)clearTimeout(syncTimer);
-  syncTimer=setTimeout(function(){syncToCloud();},800);
-}
+function scheduleSync(){if(syncTimer)clearTimeout(syncTimer);syncTimer=setTimeout(syncToCloud,800);}
 
 async function loadFromCloud(){
-  if(!currentUser){return false;}
+  if(!currentUser)return false;
   setSyncStatus('syncing');
   try{
-    var userRef=doc(db,'users',currentUser.uid);
-    var snap=await getDoc(userRef);
+    var snap=await getDoc(doc(db,'users',currentUser.uid));
     if(snap.exists()){
       var data=snap.data();
       products=Array.isArray(data.products)?data.products:[];
@@ -543,15 +515,10 @@ async function loadFromCloud(){
       }
       setSyncStatus('synced');
       return true;
-    }else{
-      setSyncStatus('synced');
-      return false;
     }
-  }catch(err){
-    console.error('Load error:',err);
-    setSyncStatus('offline');
+    setSyncStatus('synced');
     return false;
-  }
+  }catch(err){console.error('Load error:',err);setSyncStatus('offline');return false;}
 }
 
 var THEMES={
@@ -580,7 +547,7 @@ function applyTheme(){
   var meta=document.querySelector('meta[name="theme-color"]');
   if(meta)meta.setAttribute('content',t.p);
   hdrShopName.textContent=settings.shopName||'My Shop';
-  document.title=settings.shopName+' · Stock & Profit Manager V0.7';
+  document.title=settings.shopName+' · Stock & Profit Manager V0.8';
   document.getElementById('spShop').textContent=settings.shopName||'My Shop';
   document.getElementById('spPrice').textContent=settings.currency+'100.00';
   document.getElementById('shopNameInput').value=settings.shopName||'';
@@ -742,7 +709,10 @@ function saveS(){scheduleSync();}
 function saveE(){scheduleSync();}
 function saveSet(){scheduleSync();}
 
+var eventsAttached=false;
 function attachEvents(){
+  if(eventsAttached)return;
+  eventsAttached=true;
   document.getElementById('productForm').addEventListener('submit',function(e){e.preventDefault();var name=document.getElementById('productName').value.trim();var category=document.getElementById('productCategory').value.trim()||'Other';var buyingPrice=parseFloat(document.getElementById('buyingPrice').value);var sellingPrice=parseFloat(document.getElementById('sellingPrice').value);var quantity=parseInt(document.getElementById('quantity').value,10);if(!name){alert('Enter a product name.');return;}if(isNaN(buyingPrice)||buyingPrice<0){alert('Buying price must be positive.');return;}if(isNaN(sellingPrice)||sellingPrice<0){alert('Selling price must be positive.');return;}if(isNaN(quantity)||quantity<0){alert('Quantity must be 0 or more.');return;}if(editingId){var idx=products.findIndex(function(p){return p.id===editingId;});if(idx!==-1){products[idx].name=name;products[idx].category=category;products[idx].buyingPrice=buyingPrice;products[idx].sellingPrice=sellingPrice;products[idx].quantity=quantity;}}else{products.push({id:gid(),name:name,category:category,buyingPrice:buyingPrice,sellingPrice:sellingPrice,quantity:quantity});}saveP();resetF();refUI();});
   document.getElementById('expenseForm').addEventListener('submit',function(e){e.preventDefault();var desc=document.getElementById('expenseDesc').value.trim();var cat=document.getElementById('expenseCategory').value;var amt=parseFloat(document.getElementById('expenseAmount').value);if(!desc){alert('Enter description.');return;}if(isNaN(amt)||amt<=0){alert('Amount must be > 0.');return;}expenses.push({id:gid(),description:desc,category:cat,amount:amt,timestamp:new Date().toISOString(),dateKey:todayKey()});saveE();resetExpForm();refUI();});
   document.getElementById('periodButtons').addEventListener('click',function(e){if(!e.target.classList.contains('pbtn'))return;var btns=document.getElementById('periodButtons').querySelectorAll('.pbtn');for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');e.target.classList.add('active');currentPeriod=e.target.dataset.period;updReports();});
@@ -772,18 +742,41 @@ function attachEvents(){
   document.getElementById('syncNowBtn').addEventListener('click',function(){syncToCloud();});
 }
 
+function showLanding(){
+  landingScreen.classList.remove('hidden');
+  loginScreen.classList.add('hidden');
+  mainApp.classList.add('hidden');
+  mobileNav.classList.add('hidden');
+}
+function showLoginScreen(mode){
+  landingScreen.classList.add('hidden');
+  loginScreen.classList.remove('hidden');
+  mainApp.classList.add('hidden');
+  mobileNav.classList.add('hidden');
+  hideLoginMsg();
+  if(mode==='signup'){
+    document.getElementById('authTitle').textContent='✨ Create your account';
+    document.getElementById('authSubtitle').textContent='One account. Syncs to all your devices.';
+    loginBtn.style.display='none';
+    signupBtn.style.display='inline-flex';
+  }else{
+    document.getElementById('authTitle').textContent='🔑 Welcome back';
+    document.getElementById('authSubtitle').textContent='Log in to your account';
+    loginBtn.style.display='inline-flex';
+    signupBtn.style.display='none';
+  }
+}
 function showApp(){
+  landingScreen.classList.add('hidden');
   loginScreen.classList.add('hidden');
   mainApp.classList.remove('hidden');
   mobileNav.classList.remove('hidden');
   document.getElementById('userEmail').textContent=currentUser?currentUser.email:'';
 }
 
-function showLogin(){
-  mainApp.classList.add('hidden');
-  mobileNav.classList.add('hidden');
-  loginScreen.classList.remove('hidden');
-}
+document.getElementById('getStartedBtn').addEventListener('click',function(){showLoginScreen('signup');});
+document.getElementById('goLoginBtn').addEventListener('click',function(){showLoginScreen('login');});
+document.getElementById('backToLanding').addEventListener('click',showLanding);
 
 loginBtn.addEventListener('click',async function(){
   var email=loginEmail.value.trim();
@@ -791,7 +784,7 @@ loginBtn.addEventListener('click',async function(){
   if(!email||!pass){showLoginMsg('Please enter email and password.','error');return;}
   showLoginMsg('Logging in...','success');
   try{await signInWithEmailAndPassword(auth,email,pass);}
-  catch(err){var msg=err.code==='auth/invalid-credential'?'Wrong email or password.':err.code==='auth/user-not-found'?'No account with that email. Click "Create Account" below.':err.code==='auth/wrong-password'?'Wrong password.':err.message;showLoginMsg(msg,'error');}
+  catch(err){var msg=err.code==='auth/invalid-credential'?'Wrong email or password.':err.code==='auth/user-not-found'?'No account with that email. Click "Create Account".':err.code==='auth/wrong-password'?'Wrong password.':err.message;showLoginMsg(msg,'error');}
 });
 
 signupBtn.addEventListener('click',async function(){
@@ -819,7 +812,7 @@ onAuthStateChanged(auth,async function(user){
     showApp();
   }else{
     currentUser=null;
-    showLogin();
+    showLanding();
   }
 });
 
