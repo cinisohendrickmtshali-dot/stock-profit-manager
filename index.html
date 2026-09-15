@@ -8,56 +8,38 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; }
     body { background: #f5f7fc; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
     .app-container { max-width: 1200px; width: 100%; }
-
     :root {
-      --primary: #1e3c72;
-      --primary-light: #2a4a8a;
-      --accent: #0b8f5c;
-      --accent-soft: #e6f4ed;
-      --danger: #b22234;
-      --danger-soft: #ffe8ec;
-      --warning: #b86b1f;
-      --warning-soft: #fff2e0;
-      --gray-100: #f0f3f9;
-      --gray-200: #e1e6ef;
-      --gray-600: #4f5b6b;
-      --gray-800: #1e2a3a;
-      --white: #ffffff;
-      --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.03);
-      --radius: 16px;
-      --radius-sm: 10px;
+      --primary: #1e3c72; --primary-light: #2a4a8a; --accent: #0b8f5c;
+      --accent-soft: #e6f4ed; --danger: #b22234; --danger-soft: #ffe8ec;
+      --warning: #b86b1f; --warning-soft: #fff2e0;
+      --gray-100: #f0f3f9; --gray-200: #e1e6ef; --gray-600: #4f5b6b;
+      --gray-800: #1e2a3a; --white: #ffffff;
+      --shadow-sm: 0 4px 10px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.03);
+      --radius: 16px; --radius-sm: 10px;
     }
-
     h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
-
     .app-header { margin-bottom: 20px; text-align: center; }
     .app-header h1 { font-size: 2rem; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
     .app-header h1 span { background: var(--accent); color: white; font-size: 1rem; padding: 4px 12px; border-radius: 40px; font-weight: 500; }
     .app-header p { color: var(--gray-600); font-size: 1rem; margin-top: 6px; }
-
     .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
     .stat-card { background: var(--white); padding: 18px 16px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); }
     .stat-card .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; color: var(--gray-600); margin-bottom: 6px; }
     .stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--gray-800); line-height: 1.2; word-break: break-word; }
     .stat-card.accent .value { color: var(--accent); }
     .stat-card.sale .value { color: #b86b1f; }
-
     .low-stock-banner { background: var(--warning-soft); border-left: 6px solid var(--warning); padding: 14px 18px; border-radius: var(--radius-sm); margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-weight: 500; }
     .low-stock-banner span { color: #9c4d0e; font-weight: 600; }
     .low-stock-banner .badge { background: #b86b1f; color: white; padding: 5px 12px; border-radius: 30px; font-size: 0.8rem; }
-
     .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); padding: 20px; margin-bottom: 24px; }
     .card h2 { font-size: 1.3rem; color: var(--gray-800); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group.full-width { grid-column: span 2; }
     .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.3px; }
-    .form-group input, .form-group select { padding: 12px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 1rem; background: var(--white); width: 100%; }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(42, 74, 138, 0.1); }
-
+    .form-group input { padding: 12px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 1rem; background: var(--white); width: 100%; }
+    .form-group input:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(42,74,138,0.1); }
     .profit-preview { background: var(--accent-soft); padding: 12px 16px; border-radius: var(--radius-sm); display: flex; justify-content: space-between; align-items: center; font-weight: 500; color: #0b5e3d; margin-top: 6px; grid-column: span 2; font-size: 1rem; }
-
     .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; grid-column: span 2; }
     .btn { padding: 12px 22px; border-radius: 40px; border: none; font-weight: 600; font-size: 0.95rem; cursor: pointer; background: var(--gray-100); color: var(--gray-800); display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: 1 0 auto; }
     .btn-primary { background: var(--primary); color: white; }
@@ -65,18 +47,14 @@
     .btn-outline { background: transparent; border: 1.5px solid var(--gray-200); }
     .btn-outline:hover { background: var(--gray-100); }
     .btn-danger { background: var(--danger-soft); color: var(--danger); }
-    .btn-danger:hover { background: #ffd9df; }
     .btn-success { background: var(--accent); color: white; }
     .btn-success:hover { background: #0a7a4e; }
     .btn-sm { padding: 8px 14px; font-size: 0.8rem; border-radius: 30px; flex: 0 0 auto; }
-
     .tools-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
     .search-box { display: flex; align-items: center; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 40px; padding: 4px 6px 4px 18px; flex: 2 1 240px; }
     .search-box input { border: none; padding: 10px 6px; font-size: 0.95rem; width: 100%; background: transparent; }
     .search-box input:focus { outline: none; }
     .search-box button { background: var(--primary); color: white; border: none; border-radius: 40px; padding: 8px 20px; font-weight: 500; cursor: pointer; }
-    .search-box button:hover { background: var(--primary-light); }
-
     .table-responsive { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); background: var(--white); }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 900px; }
     th { background: var(--gray-100); padding: 14px 12px; text-align: left; font-weight: 600; color: var(--gray-800); font-size: 0.8rem; text-transform: uppercase; white-space: nowrap; }
@@ -86,7 +64,6 @@
     .category-tag { background: var(--gray-100); padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; font-weight: 500; color: var(--gray-600); display: inline-block; }
     .stock-actions { display: flex; align-items: center; gap: 6px; }
     .stock-actions button { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--gray-200); background: white; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--gray-800); }
-    .stock-actions button:hover { background: var(--gray-100); }
     .stock-actions .qty { min-width: 40px; text-align: center; font-weight: 600; }
     .low-stock-row { background: var(--warning-soft); }
     .low-stock-row td:first-child { border-left: 4px solid var(--warning); }
@@ -94,7 +71,6 @@
     .text-danger { color: var(--danger); font-weight: 600; }
     .action-cell { display: flex; gap: 6px; flex-wrap: wrap; }
     .empty-message { text-align: center; padding: 40px 20px; color: var(--gray-600); font-style: italic; background: var(--white); border-radius: var(--radius-sm); border: 1px dashed var(--gray-200); }
-
     .sales-list { max-height: 400px; overflow-y: auto; }
     .sale-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--gray-200); gap: 12px; flex-wrap: wrap; }
     .sale-item:last-child { border-bottom: none; }
@@ -103,9 +79,7 @@
     .sale-item .sale-meta { font-size: 0.8rem; color: var(--gray-600); margin-top: 2px; }
     .sale-item .sale-amount { font-weight: 700; color: var(--accent); font-size: 1.05rem; }
     .sale-item .sale-profit { font-size: 0.75rem; color: var(--gray-600); }
-
     .footer-note { font-size: 0.75rem; color: var(--gray-600); text-align: center; margin-top: 24px; opacity: 0.8; }
-
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
     .modal-overlay.show { display: flex; }
     .modal { background: white; border-radius: var(--radius); padding: 24px; max-width: 400px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
@@ -117,7 +91,6 @@
     .modal .modal-info strong { font-size: 1.1rem; }
     .modal .modal-actions { display: flex; gap: 10px; }
     .modal .modal-actions .btn { flex: 1; }
-
     @media (max-width: 600px) {
       body { padding: 10px; }
       .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -138,115 +111,58 @@
     <h1>📦 Stock & Profit <span>Manager V0.2</span></h1>
     <p>For spaza shops, salons, takeaways & small business</p>
   </header>
-
   <section class="dashboard-grid">
-    <div class="stat-card">
-      <div class="label">Total products</div>
-      <div class="value" id="totalProducts">0</div>
-    </div>
-    <div class="stat-card">
-      <div class="label">Total units</div>
-      <div class="value" id="totalUnits">0</div>
-    </div>
-    <div class="stat-card accent">
-      <div class="label">Stock value (cost)</div>
-      <div class="value" id="totalStockValue">R0</div>
-    </div>
-    <div class="stat-card accent">
-      <div class="label">Expected profit</div>
-      <div class="value" id="totalExpectedProfit">R0</div>
-    </div>
-    <div class="stat-card sale">
-      <div class="label">Today's sales</div>
-      <div class="value" id="todaySales">R0</div>
-    </div>
-    <div class="stat-card sale">
-      <div class="label">Today's profit</div>
-      <div class="value" id="todayProfit">R0</div>
-    </div>
+    <div class="stat-card"><div class="label">Total products</div><div class="value" id="totalProducts">0</div></div>
+    <div class="stat-card"><div class="label">Total units</div><div class="value" id="totalUnits">0</div></div>
+    <div class="stat-card accent"><div class="label">Stock value (cost)</div><div class="value" id="totalStockValue">R0</div></div>
+    <div class="stat-card accent"><div class="label">Expected profit</div><div class="value" id="totalExpectedProfit">R0</div></div>
+    <div class="stat-card sale"><div class="label">Today's sales</div><div class="value" id="todaySales">R0</div></div>
+    <div class="stat-card sale"><div class="label">Today's profit</div><div class="value" id="todayProfit">R0</div></div>
   </section>
-
-  <div class="low-stock-banner" id="lowStockBanner">
+  <div class="low-stock-banner">
     <div>⚠️ <span id="lowStockCount">0</span> product(s) low on stock (≤ 3 units)</div>
     <div class="badge" id="lowStockNames">—</div>
   </div>
-
   <div class="card">
     <h2 id="formTitle">➕ Add new product</h2>
     <form id="productForm">
       <div class="form-grid">
-        <div class="form-group full-width">
-          <label for="productName">Product name *</label>
-          <input type="text" id="productName" placeholder="e.g. Coca-Cola 500ml" required>
-        </div>
-        <div class="form-group">
-          <label for="productCategory">Category</label>
-          <input type="text" id="productCategory" placeholder="Drinks, Snacks, etc." list="categoryList">
-          <datalist id="categoryList">
-            <option value="Drinks"><option value="Snacks"><option value="Groceries"><option value="Household"><option value="Personal Care"><option value="Other">
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label for="buyingPrice">Buying price (R) *</label>
-          <input type="number" id="buyingPrice" step="0.01" min="0" placeholder="0.00" required>
-        </div>
-        <div class="form-group">
-          <label for="sellingPrice">Selling price (R) *</label>
-          <input type="number" id="sellingPrice" step="0.01" min="0" placeholder="0.00" required>
-        </div>
-        <div class="form-group">
-          <label for="quantity">Quantity in stock *</label>
-          <input type="number" id="quantity" step="1" min="0" placeholder="0" required>
-        </div>
-        <div class="profit-preview">
-          <span>💰 Potential profit per unit:</span>
-          <strong id="unitProfitPreview">R0.00</strong>
-        </div>
-        <div class="profit-preview" style="background: #e6f4ed;">
-          <span>📊 Total potential profit (this batch):</span>
-          <strong id="batchProfitPreview">R0.00</strong>
-        </div>
+        <div class="form-group full-width"><label for="productName">Product name *</label><input type="text" id="productName" placeholder="e.g. Coca-Cola 500ml" required></div>
+        <div class="form-group"><label for="productCategory">Category</label><input type="text" id="productCategory" placeholder="Drinks, Snacks, etc." list="categoryList"><datalist id="categoryList"><option value="Drinks"><option value="Snacks"><option value="Groceries"><option value="Household"><option value="Personal Care"><option value="Other"></datalist></div>
+        <div class="form-group"><label for="buyingPrice">Buying price (R) *</label><input type="number" id="buyingPrice" step="0.01" min="0" placeholder="0.00" required></div>
+        <div class="form-group"><label for="sellingPrice">Selling price (R) *</label><input type="number" id="sellingPrice" step="0.01" min="0" placeholder="0.00" required></div>
+        <div class="form-group"><label for="quantity">Quantity in stock *</label><input type="number" id="quantity" step="1" min="0" placeholder="0" required></div>
+        <div class="profit-preview"><span>💰 Potential profit per unit:</span><strong id="unitProfitPreview">R0.00</strong></div>
+        <div class="profit-preview" style="background:#e6f4ed;"><span>📊 Total potential profit (this batch):</span><strong id="batchProfitPreview">R0.00</strong></div>
       </div>
       <div class="btn-group">
         <button type="submit" class="btn btn-primary" id="submitBtn">Save product</button>
-        <button type="button" class="btn btn-outline" id="cancelEditBtn" style="display: none;">Cancel edit</button>
+        <button type="button" class="btn btn-outline" id="cancelEditBtn" style="display:none;">Cancel edit</button>
         <button type="button" class="btn btn-outline" id="resetFormBtn">Clear form</button>
       </div>
     </form>
   </div>
-
-  <div class="card" style="padding-bottom: 8px;">
+  <div class="card" style="padding-bottom:8px;">
     <div class="tools-bar">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search by name or category...">
-        <button id="clearSearchBtn" type="button">Clear</button>
-      </div>
+      <div class="search-box"><input type="text" id="searchInput" placeholder="Search by name or category..."><button id="clearSearchBtn" type="button">Clear</button></div>
     </div>
     <div class="table-responsive">
       <table>
-        <thead>
-          <tr>
-            <th>Product</th><th>Category</th><th>Buy (R)</th><th>Sell (R)</th>
-            <th>Stock</th><th>Profit / unit</th><th>Total profit</th><th>Actions</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Product</th><th>Category</th><th>Buy (R)</th><th>Sell (R)</th><th>Stock</th><th>Profit / unit</th><th>Total profit</th><th>Actions</th></tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
-    <div id="emptyState" class="empty-message" style="display: none;">No products yet. Add your first product above 👆</div>
+    <div id="emptyState" class="empty-message" style="display:none;">No products yet. Add your first product above 👆</div>
   </div>
-
   <div class="card">
-    <h2>🧾 Sales History <span style="font-size: 0.8rem; color: var(--gray-600); font-weight: 400;" id="salesCountLabel">(0 sales)</span></h2>
+    <h2>🧾 Sales History <span style="font-size:0.8rem; color:var(--gray-600); font-weight:400;" id="salesCountLabel">(0 sales)</span></h2>
     <div class="sales-list" id="salesList"></div>
-    <div class="btn-group" style="margin-top: 12px;">
-      <button class="btn btn-outline btn-sm" id="clearSalesBtn" type="button" style="flex: 0 0 auto;">🗑 Clear all sales history</button>
+    <div class="btn-group" style="margin-top:12px;">
+      <button class="btn btn-outline btn-sm" id="clearSalesBtn" type="button" style="flex:0 0 auto;">🗑 Clear all sales history</button>
     </div>
   </div>
-
   <div class="footer-note">Data stored in your browser · V0.2 with Sales Tracking</div>
 </div>
-
 <div class="modal-overlay" id="sellModal">
   <div class="modal">
     <h3>🛒 Record a sale</h3>
@@ -263,54 +179,43 @@
     </div>
   </div>
 </div>
-
 <script>
   (function() {
     const KEY_PRODUCTS = 'stock_profit_manager_products';
     const KEY_SALES = 'stock_profit_manager_sales_v2';
-
     let products = [];
     let sales = [];
     let editingId = null;
     let searchTerm = '';
     let sellingProductId = null;
-
     const $ = id => document.getElementById(id);
-
     const form = $('productForm');
     const formTitle = $('formTitle');
     const submitBtn = $('submitBtn');
     const cancelEditBtn = $('cancelEditBtn');
     const resetFormBtn = $('resetFormBtn');
-
     const nameInput = $('productName');
     const categoryInput = $('productCategory');
     const buyingInput = $('buyingPrice');
     const sellingInput = $('sellingPrice');
     const quantityInput = $('quantity');
-
     const unitProfitPreview = $('unitProfitPreview');
     const batchProfitPreview = $('batchProfitPreview');
-
     const totalProductsEl = $('totalProducts');
     const totalUnitsEl = $('totalUnits');
     const totalStockValueEl = $('totalStockValue');
     const totalExpectedProfitEl = $('totalExpectedProfit');
     const todaySalesEl = $('todaySales');
     const todayProfitEl = $('todayProfit');
-
     const lowStockCountEl = $('lowStockCount');
     const lowStockNamesEl = $('lowStockNames');
-
     const tableBody = $('tableBody');
     const emptyState = $('emptyState');
     const searchInput = $('searchInput');
     const clearSearchBtn = $('clearSearchBtn');
-
     const salesList = $('salesList');
     const salesCountLabel = $('salesCountLabel');
     const clearSalesBtn = $('clearSalesBtn');
-
     const sellModal = $('sellModal');
     const sellProductName = $('sellProductName');
     const sellQuantity = $('sellQuantity');
@@ -318,7 +223,6 @@
     const sellProfitPreview = $('sellProfitPreview');
     const cancelSellBtn = $('cancelSellBtn');
     const confirmSellBtn = $('confirmSellBtn');
-
     function formatRand(v) { return 'R' + Number(v).toFixed(2); }
     function generateId() { return Date.now().toString(36) + Math.random().toString(36).substring(2, 8); }
     function todayKey() {
@@ -333,7 +237,6 @@
       if (!t) return '';
       return String(t).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
     }
-
     function loadAll() {
       const p = localStorage.getItem(KEY_PRODUCTS);
       if (p) { try { products = JSON.parse(p) || []; } catch(e) { products = []; } }
@@ -352,23 +255,19 @@
     }
     function saveProducts() { localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products)); }
     function saveSales() { localStorage.setItem(KEY_SALES, JSON.stringify(sales)); }
-
     function updateDashboard() {
       const totalProducts = products.length;
       const totalUnits = products.reduce((sum,p) => sum + (p.quantity||0), 0);
       const stockValue = products.reduce((sum,p) => sum + (p.buyingPrice||0)*(p.quantity||0), 0);
       const expectedProfit = products.reduce((sum,p) => sum + ((p.sellingPrice||0)-(p.buyingPrice||0))*(p.quantity||0), 0);
-
       totalProductsEl.textContent = totalProducts;
       totalUnitsEl.textContent = totalUnits;
       totalStockValueEl.textContent = formatRand(stockValue);
       totalExpectedProfitEl.textContent = formatRand(expectedProfit);
-
       const today = todayKey();
-      const todaySales = sales.filter(s => s.dateKey === today);
-      todaySalesEl.textContent = formatRand(todaySales.reduce((sum,s) => sum + s.totalSale, 0));
-      todayProfitEl.textContent = formatRand(todaySales.reduce((sum,s) => sum + s.profit, 0));
-
+      const todaySalesArr = sales.filter(s => s.dateKey === today);
+      todaySalesEl.textContent = formatRand(todaySalesArr.reduce((sum,s) => sum + s.totalSale, 0));
+      todayProfitEl.textContent = formatRand(todaySalesArr.reduce((sum,s) => sum + s.profit, 0));
       const low = products.filter(p => (p.quantity||0) <= 3);
       lowStockCountEl.textContent = low.length;
       if (low.length > 0) {
@@ -378,25 +277,19 @@
         lowStockNamesEl.textContent = '—';
       }
     }
-
     function renderTable() {
       let filtered = products;
       if (searchTerm.trim()) {
         const term = searchTerm.trim().toLowerCase();
-        filtered = products.filter(p =>
-          p.name.toLowerCase().includes(term) || (p.category||'').toLowerCase().includes(term)
-        );
+        filtered = products.filter(p => p.name.toLowerCase().includes(term) || (p.category||'').toLowerCase().includes(term));
       }
       if (filtered.length === 0) {
         tableBody.innerHTML = '';
         emptyState.style.display = 'block';
-        emptyState.textContent = products.length === 0
-          ? 'No products yet. Add your first product above 👆'
-          : 'No products match your search.';
+        emptyState.textContent = products.length === 0 ? 'No products yet. Add your first product above 👆' : 'No products match your search.';
         return;
       }
       emptyState.style.display = 'none';
-
       let html = '';
       filtered.forEach(p => {
         const ppu = (p.sellingPrice||0) - (p.buyingPrice||0);
@@ -404,66 +297,49 @@
         const isLow = (p.quantity||0) <= 3;
         const rowClass = isLow ? 'low-stock-row' : '';
         const canSell = (p.quantity||0) > 0;
-
-        html += `
-          <tr class="${rowClass}">
-            <td><span class="product-name">${escapeHtml(p.name)}</span></td>
-            <td><span class="category-tag">${escapeHtml(p.category||'—')}</span></td>
-            <td>${formatRand(p.buyingPrice)}</td>
-            <td>${formatRand(p.sellingPrice)}</td>
-            <td>
-              <div class="stock-actions">
-                <button class="decrease-qty" data-id="${p.id}">−</button>
-                <span class="qty">${p.quantity}</span>
-                <button class="increase-qty" data-id="${p.id}">+</button>
-              </div>
-            </td>
-            <td class="${ppu>=0?'text-accent':'text-danger'}">${formatRand(ppu)}</td>
-            <td class="${total>=0?'text-accent':'text-danger'}">${formatRand(total)}</td>
-            <td>
-              <div class="action-cell">
-                <button class="btn btn-success btn-sm sell-btn" data-id="${p.id}" ${canSell?'':'disabled style="opacity:0.4;cursor:not-allowed;"'}>🛒 Sell</button>
-                <button class="btn btn-outline btn-sm edit-btn" data-id="${p.id}">✎</button>
-                <button class="btn btn-danger btn-sm delete-btn" data-id="${p.id}">🗑</button>
-              </div>
-            </td>
-          </tr>
-        `;
+        html += '<tr class="' + rowClass + '">' +
+          '<td><span class="product-name">' + escapeHtml(p.name) + '</span></td>' +
+          '<td><span class="category-tag">' + escapeHtml(p.category||'—') + '</span></td>' +
+          '<td>' + formatRand(p.buyingPrice) + '</td>' +
+          '<td>' + formatRand(p.sellingPrice) + '</td>' +
+          '<td><div class="stock-actions"><button class="decrease-qty" data-id="' + p.id + '">−</button><span class="qty">' + p.quantity + '</span><button class="increase-qty" data-id="' + p.id + '">+</button></div></td>' +
+          '<td class="' + (ppu>=0?'text-accent':'text-danger') + '">' + formatRand(ppu) + '</td>' +
+          '<td class="' + (total>=0?'text-accent':'text-danger') + '">' + formatRand(total) + '</td>' +
+          '<td><div class="action-cell">' +
+            '<button class="btn btn-success btn-sm sell-btn" data-id="' + p.id + '"' + (canSell?'':' disabled style="opacity:0.4;"') + '>🛒</button>' +
+            '<button class="btn btn-outline btn-sm edit-btn" data-id="' + p.id + '">✎</button>' +
+            '<button class="btn btn-danger btn-sm delete-btn" data-id="' + p.id + '">🗑</button>' +
+          '</div></td></tr>';
       });
       tableBody.innerHTML = html;
-
       tableBody.querySelectorAll('.decrease-qty').forEach(b => b.addEventListener('click', e => adjustQuantity(e.currentTarget.dataset.id, -1)));
       tableBody.querySelectorAll('.increase-qty').forEach(b => b.addEventListener('click', e => adjustQuantity(e.currentTarget.dataset.id, 1)));
       tableBody.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', e => startEdit(e.currentTarget.dataset.id)));
       tableBody.querySelectorAll('.delete-btn').forEach(b => b.addEventListener('click', e => deleteProduct(e.currentTarget.dataset.id)));
       tableBody.querySelectorAll('.sell-btn').forEach(b => b.addEventListener('click', e => openSellModal(e.currentTarget.dataset.id)));
     }
-
     function renderSales() {
-      salesCountLabel.textContent = `(${sales.length} sale${sales.length !== 1 ? 's' : ''})`;
+      salesCountLabel.textContent = '(' + sales.length + ' sale' + (sales.length !== 1 ? 's' : '') + ')';
       if (sales.length === 0) {
-        salesList.innerHTML = '<div class="empty-message">No sales yet. Click "Sell" on any product above to record your first sale.</div>';
+        salesList.innerHTML = '<div class="empty-message">No sales yet. Click 🛒 on any product above to record your first sale.</div>';
         return;
       }
       const sorted = [...sales].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
       let html = '';
       sorted.slice(0, 100).forEach(s => {
-        html += `
-          <div class="sale-item">
-            <div class="sale-info">
-              <div class="sale-name">${escapeHtml(s.productName)}</div>
-              <div class="sale-meta">${s.quantity} × ${formatRand(s.sellingPrice)} · ${formatDate(s.timestamp)}</div>
-            </div>
-            <div style="text-align:right;">
-              <div class="sale-amount">${formatRand(s.totalSale)}</div>
-              <div class="sale-profit">+${formatRand(s.profit)} profit</div>
-            </div>
-          </div>
-        `;
+        html += '<div class="sale-item">' +
+          '<div class="sale-info">' +
+            '<div class="sale-name">' + escapeHtml(s.productName) + '</div>' +
+            '<div class="sale-meta">' + s.quantity + ' × ' + formatRand(s.sellingPrice) + ' · ' + formatDate(s.timestamp) + '</div>' +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div class="sale-amount">' + formatRand(s.totalSale) + '</div>' +
+            '<div class="sale-profit">+' + formatRand(s.profit) + ' profit</div>' +
+          '</div>' +
+        '</div>';
       });
       salesList.innerHTML = html;
     }
-
     function adjustQuantity(id, delta) {
       const p = products.find(x => x.id === id);
       if (!p) return;
@@ -471,7 +347,6 @@
       saveProducts();
       refreshUI();
     }
-
     function deleteProduct(id) {
       if (confirm('Delete this product permanently?')) {
         products = products.filter(p => p.id !== id);
@@ -480,7 +355,6 @@
         refreshUI();
       }
     }
-
     function startEdit(id) {
       const p = products.find(x => x.id === id);
       if (!p) return;
@@ -496,7 +370,6 @@
       updateProfitPreview();
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-
     function resetForm() {
       editingId = null;
       form.reset();
@@ -505,7 +378,6 @@
       cancelEditBtn.style.display = 'none';
       updateProfitPreview();
     }
-
     function updateProfitPreview() {
       const buy = parseFloat(buyingInput.value) || 0;
       const sell = parseFloat(sellingInput.value) || 0;
@@ -513,20 +385,17 @@
       unitProfitPreview.textContent = formatRand(sell - buy);
       batchProfitPreview.textContent = formatRand((sell - buy) * qty);
     }
-
     function refreshUI() {
       updateDashboard();
       renderTable();
       renderSales();
       if (editingId && !products.some(p => p.id === editingId)) resetForm();
     }
-
-    // ---- SELL MODAL ----
     function openSellModal(id) {
       const p = products.find(x => x.id === id);
       if (!p || (p.quantity||0) <= 0) return;
       sellingProductId = id;
-      sellProductName.textContent = `${p.name} · ${p.quantity} in stock`;
+      sellProductName.textContent = p.name + ' · ' + p.quantity + ' in stock';
       sellQuantity.value = 1;
       sellQuantity.max = p.quantity;
       updateSellPreview();
@@ -549,5 +418,84 @@
       const p = products.find(x => x.id === sellingProductId);
       if (!p) return;
       const qty = Math.max(1, parseInt(sellQuantity.value) || 1);
-      if (qty > p.quantity) {
-       
+      if (qty > p.quantity) { alert('Not enough stock. Only ' + p.quantity + ' available.'); return; }
+      const sale = {
+        id: generateId(),
+        productId: p.id,
+        productName: p.name,
+        quantity: qty,
+        sellingPrice: p.sellingPrice,
+        buyingPrice: p.buyingPrice,
+        totalSale: qty * p.sellingPrice,
+        profit: qty * (p.sellingPrice - p.buyingPrice),
+        timestamp: new Date().toISOString(),
+        dateKey: todayKey()
+      };
+      sales.push(sale);
+      p.quantity -= qty;
+      saveSales();
+      saveProducts();
+      closeSellModal();
+      refreshUI();
+    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const category = categoryInput.value.trim(buyingInput.value);
+      const sellingPrice = parseFloat(sellingInput.value);
+      const quantity = parseInt(quantityInput.value, 10);
+      if (!name) return alert('Please enter a product name.');
+      if (isNaN(buyingPrice) || buyingPrice < 0) return alert('Buying price must be a positive number.');
+      if (isNaN(sellingPrice) || sellingPrice < 0) return alert('Selling price must be a positive number.');
+      if (isNaN(quantity) || quantity < 0) return alert('Quantity must be zero or greater.');
+      if (editingId) {
+        const index = products.findIndex(p => p.id === editingId);
+        if (index !== -1) {
+          products[index] = { ...products[index], name, category, buyingPrice, sellingPrice, quantity };
+        }
+      } else {
+        products.push({ id: generateId(), name, category, buyingPrice, sellingPrice, quantity });
+      }
+      saveProducts();
+      resetForm();
+      refreshUI();
+    });
+
+    cancelEditBtn.addEventListener('click', resetForm);
+    resetFormBtn.addEventListener('click', resetForm);
+    [buyingInput, sellingInput, quantityInput].forEach(input => {
+      input.addEventListener('input', updateProfitPreview);
+    });
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      renderTable();
+    });
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchTerm = '';
+      renderTable();
+    });
+    clearSalesBtn.addEventListener('click', () => {
+      if (sales.length === 0) return;
+      if (confirm('Clear ALL sales history? This cannot be undone.')) {
+        sales = [];
+        saveSales();
+        refreshUI();
+      }
+    });
+    cancelSellBtn.addEventListener('click', closeSellModal);
+    sellQuantity.addEventListener('input', updateSellPreview);
+    confirmSellBtn.addEventListener('click', confirmSale);
+    sellModal.addEventListener('click', (e) => {
+      if (e.target === sellModal) closeSellModal();
+    });
+
+    loadAll();
+    refreshUI();
+    resetForm();
+    updateProfitPreview();
+  })();
+</script>
+</body>
+</html>) || 'Other';
+      const buyingPrice = parseFloat
