@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>Stock & Profit Manager · V0.3</title>
+<title>Stock & Profit Manager · V0.4</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
 body{background:#f5f7fc;padding:16px;min-height:100vh;display:flex;flex-direction:column;align-items:center}
@@ -98,13 +98,42 @@ tr:last-child td{border-bottom:none}
 .sumbox .sv{font-size:1.3rem;font-weight:700;color:var(--g8)}
 .sumbox.pos .sv{color:var(--a)}
 .sumbox.neg .sv{color:var(--d)}
-@media(max-width:600px){body{padding:10px}.dash{grid-template-columns:1fr 1fr;gap:10px}.stat .v{font-size:1.2rem}.fg{grid-template-columns:1fr}.fgr.fw{grid-column:span 1}.pp{grid-column:span 1}.bg{grid-column:span 1}.tb{flex-direction:column;align-items:stretch}.sb{width:100%}.low{flex-direction:column;align-items:flex-start}.sum{grid-template-columns:1fr}}
+.periods{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.pbtn{padding:10px 18px;border-radius:30px;border:1.5px solid var(--g2);background:var(--wt);font-weight:600;font-size:.85rem;cursor:pointer;color:var(--g6);transition:all .15s}
+.pbtn:hover{background:var(--g1)}
+.pbtn.active{background:var(--p);color:#fff;border-color:var(--p)}
+.rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.rep-card{background:var(--g1);padding:16px;border-radius:var(--rs);border:1px solid var(--g2)}
+.rep-card .rl{font-size:.75rem;text-transform:uppercase;font-weight:600;color:var(--g6);letter-spacing:.4px;margin-bottom:6px}
+.rep-card .rv{font-size:1.5rem;font-weight:700;color:var(--g8);line-height:1.2}
+.rep-card.pos .rv{color:var(--a)}
+.rep-card.neg .rv{color:var(--d)}
+.rep-card.exp .rv{color:var(--ex)}
+.top-list{display:flex;flex-direction:column;gap:8px}
+.top-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--g1);border-radius:var(--rs)}
+.top-rank{width:32px;height:32px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex:0 0 auto}
+.top-rank.gold{background:#d4a017}
+.top-rank.silver{background:#a0a0a0}
+.top-rank.bronze{background:#b87333}
+.top-info{flex:1;min-width:0}
+.top-name{font-weight:600;color:var(--g8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-meta{font-size:.75rem;color:var(--g6);margin-top:2px}
+.top-val{font-weight:700;color:var(--a);text-align:right}
+.daily-list{display:flex;flex-direction:column;gap:6px}
+.daily-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--g1);border-radius:var(--rs);font-size:.9rem}
+.daily-row .dlabel{font-weight:600;color:var(--g8)}
+.daily-row .dvals{display:flex;gap:18px;flex-wrap:wrap}
+.daily-row .dval{font-weight:600}
+.daily-row .dval.pos{color:var(--a)}
+.daily-row .dval.neg{color:var(--d)}
+.csv-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:600px){body{padding:10px}.dash{grid-template-columns:1fr 1fr;gap:10px}.stat .v{font-size:1.2rem}.fg{grid-template-columns:1fr}.fgr.fw{grid-column:span 1}.pp{grid-column:span 1}.bg{grid-column:span 1}.tb{flex-direction:column;align-items:stretch}.sb{width:100%}.low{flex-direction:column;align-items:flex-start}.sum{grid-template-columns:1fr}.rep-grid{grid-template-columns:1fr}.periods{justify-content:center}.daily-row{flex-direction:column;align-items:flex-start;gap:6px}.daily-row .dvals{gap:12px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="hdr">
-<h1>📦 Stock & Profit <span>Manager V0.3</span></h1>
+<h1>📦 Stock & Profit <span>Manager V0.4</span></h1>
 <p>For spaza shops, salons, takeaways & small business</p>
 </header>
 
@@ -123,6 +152,40 @@ tr:last-child td{border-bottom:none}
 <div>⚠️ <span id="lowStockCount">0</span> product(s) low on stock (≤ 3 units)</div>
 <div class="b" id="lowStockNames">—</div>
 </div>
+
+<!-- ========== REPORTS SECTION (V0.4 NEW) ========== -->
+<div class="card">
+<h2>📊 Reports & Analytics</h2>
+<div class="periods" id="periodButtons">
+<button class="pbtn active" data-period="today">Today</button>
+<button class="pbtn" data-period="week">This Week</button>
+<button class="pbtn" data-period="month">This Month</button>
+<button class="pbtn" data-period="all">All Time</button>
+</div>
+
+<div class="rep-grid">
+<div class="rep-card pos"><div class="rl">Total Sales</div><div class="rv" id="repSales">R0.00</div></div>
+<div class="rep-card pos"><div class="rl">Total Profit</div><div class="rv" id="repProfit">R0.00</div></div>
+<div class="rep-card exp"><div class="rl">Total Expenses</div><div class="rv" id="repExpenses">R0.00</div></div>
+<div class="rep-card" id="repTrueCard"><div class="rl">True Profit</div><div class="rv" id="repTrueProfit">R0.00</div></div>
+<div class="rep-card"><div class="rl"># of Sales</div><div class="rv" id="repSaleCount">0</div></div>
+<div class="rep-card"><div class="rl">Avg. Sale Value</div><div class="rv" id="repAvgSale">R0.00</div></div>
+</div>
+
+<h3 style="font-size:1.05rem;color:var(--g8);margin-bottom:12px;">🏆 Top Selling Products</h3>
+<div class="top-list" id="topProducts"><div class="em">No sales in this period yet.</div></div>
+
+<h3 style="font-size:1.05rem;color:var(--g8);margin:22px 0 12px;">📈 Last 7 Days</h3>
+<div class="daily-list" id="dailyBreakdown"></div>
+
+<h3 style="font-size:1.05rem;color:var(--g8);margin:22px 0 12px;">💾 Export Data</h3>
+<div class="csv-row">
+<button class="btn out sm" id="exportSalesBtn" type="button">📤 Export Sales (CSV)</button>
+<button class="btn out sm" id="exportExpensesBtn" type="button">📤 Export Expenses (CSV)</button>
+<button class="btn out sm" id="exportProductsBtn" type="button">📤 Export Products (CSV)</button>
+</div>
+</div>
+<!-- ========== END REPORTS SECTION ========== -->
 
 <div class="card">
 <h2 id="formTitle">➕ Add new product</h2>
@@ -203,7 +266,7 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<div class="ft">Data stored in your browser · V0.3 with Expenses Tracking</div>
+<div class="ft">Data stored in your browser · V0.4 with Reports & CSV Export</div>
 </div>
 
 <div class="mo" id="sellModal">
@@ -225,7 +288,7 @@ tr:last-child td{border-bottom:none}
 var KP='stock_profit_manager_products';
 var KS='stock_profit_manager_sales_v2';
 var KE='stock_profit_manager_expenses_v3';
-var products=[],sales=[],expenses=[],editingId=null,searchTerm='',sellingProductId=null;
+var products=[],sales=[],expenses=[],editingId=null,searchTerm='',sellingProductId=null,currentPeriod='today';
 function $(id){return document.getElementById(id);}
 var form=$('productForm'),formTitle=$('formTitle'),submitBtn=$('submitBtn'),cancelEditBtn=$('cancelEditBtn'),resetFormBtn=$('resetFormBtn');
 var nameInput=$('productName'),categoryInput=$('productCategory'),buyingInput=$('buyingPrice'),sellingInput=$('sellingPrice'),quantityInput=$('quantity');
@@ -240,6 +303,10 @@ var salesList=$('salesList'),salesCountLabel=$('salesCountLabel'),clearSalesBtn=
 var expensesList=$('expensesList'),expensesCountLabel=$('expensesCountLabel'),clearExpensesBtn=$('clearExpensesBtn');
 var expenseForm=$('expenseForm'),expenseDesc=$('expenseDesc'),expenseCategory=$('expenseCategory'),expenseAmount=$('expenseAmount'),resetExpenseBtn=$('resetExpenseBtn');
 var sellModal=$('sellModal'),sellProductName=$('sellProductName'),sellQuantity=$('sellQuantity'),sellTotalPreview=$('sellTotalPreview'),sellProfitPreview=$('sellProfitPreview'),cancelSellBtn=$('cancelSellBtn'),confirmSellBtn=$('confirmSellBtn');
+var periodButtons=$('periodButtons');
+var repSales=$('repSales'),repProfit=$('repProfit'),repExpenses=$('repExpenses'),repTrueProfit=$('repTrueProfit'),repTrueCard=$('repTrueCard'),repSaleCount=$('repSaleCount'),repAvgSale=$('repAvgSale');
+var topProducts=$('topProducts'),dailyBreakdown=$('dailyBreakdown');
+var exportSalesBtn=$('exportSalesBtn'),exportExpensesBtn=$('exportExpensesBtn'),exportProductsBtn=$('exportProductsBtn');
 
 function fmt(v){return 'R'+Number(v).toFixed(2);}
 function gid(){return Date.now().toString(36)+Math.random().toString(36).substring(2,8);}
@@ -292,6 +359,110 @@ function updDash(){
   lowC.textContent=low.length;
   if(low.length>0){var n=low.map(function(p){return p.name;}).join(', ');lowN.textContent=n.substring(0,60)+(n.length>60?'…':'');}
   else{lowN.textContent='—';}
+}
+
+// ---- REPORTS ----
+function getPeriodStart(period){
+  var now=new Date();
+  if(period==='today'){return new Date(now.getFullYear(),now.getMonth(),now.getDate());}
+  if(period==='week'){var d=new Date(now);var day=d.getDay();var diff=d.getDate()-day+(day===0?-6:1);return new Date(d.getFullYear(),d.getMonth(),diff,0,0,0);}
+  if(period==='month'){return new Date(now.getFullYear(),now.getMonth(),1);}
+  return new Date(0);
+}
+function updReports(){
+  var start=getPeriodStart(currentPeriod);
+  var sFiltered=sales.filter(function(s){return new Date(s.timestamp)>=start;});
+  var eFiltered=expenses.filter(function(e){return new Date(e.timestamp)>=start;});
+  var totalSales=sFiltered.reduce(function(a,s){return a+s.totalSale;},0);
+  var totalProfit=sFiltered.reduce(function(a,s){return a+s.profit;},0);
+  var totalExp=eFiltered.reduce(function(a,e){return a+e.amount;},0);
+  var trueProfit=totalSales-totalExp;
+  var saleCount=sFiltered.length;
+  var avgSale=saleCount>0?totalSales/saleCount:0;
+  repSales.textContent=fmt(totalSales);
+  repProfit.textContent=fmt(totalProfit);
+  repExpenses.textContent=fmt(totalExp);
+  repTrueProfit.textContent=fmt(trueProfit);
+  repSaleCount.textContent=saleCount;
+  repAvgSale.textContent=fmt(avgSale);
+  if(trueProfit>=0){repTrueCard.className='rep-card pos';}else{repTrueCard.className='rep-card neg';}
+
+  // Top products
+  var byProd={};
+  sFiltered.forEach(function(s){
+    if(!byProd[s.productName])byProd[s.productName]={name:s.productName,qty:0,sales:0,profit:0};
+    byProd[s.productName].qty+=s.quantity;
+    byProd[s.productName].sales+=s.totalSale;
+    byProd[s.productName].profit+=s.profit;
+  });
+  var top=Object.keys(byProd).map(function(k){return byProd[k];}).sort(function(a,b){return b.profit-a.profit;}).slice(0,5);
+  if(top.length===0){topProducts.innerHTML='<div class="em">No sales in this period yet.</div>';}
+  else{
+    var html='';
+    top.forEach(function(t,i){
+      var rankClass=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+      html+='<div class="top-item"><div class="top-rank '+rankClass+'">'+(i+1)+'</div>';
+      html+='<div class="top-info"><div class="top-name">'+esc(t.name)+'</div>';
+      html+='<div class="top-meta">'+t.qty+' sold · '+fmt(t.sales)+' revenue</div></div>';
+      html+='<div class="top-val">+'+fmt(t.profit)+'</div></div>';
+    });
+    topProducts.innerHTML=html;
+  }
+
+  // Daily breakdown (last 7 days)
+  var days=[];
+  for(var i=6;i>=0;i--){
+    var d=new Date();
+    d.setDate(d.getDate()-i);
+    var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    var dayLabel=d.toLocaleDateString('en-ZA',{weekday:'short',day:'2-digit',month:'short'});
+    var daySales=sales.filter(function(s){return s.dateKey===key;});
+    var dayExp=expenses.filter(function(e){return e.dateKey===key;});
+    var ds=daySales.reduce(function(a,s){return a+s.totalSale;},0);
+    var dp=daySales.reduce(function(a,s){return a+s.profit;},0);
+    var de=dayExp.reduce(function(a,e){return a+e.amount;},0);
+    var dtp=ds-de;
+    days.push({label:dayLabel,sales:ds,profit:dp,expenses:de,trueProfit:dtp});
+  }
+  var html2='';
+  days.forEach(function(day){
+    html2+='<div class="daily-row"><div class="dlabel">'+day.label+'</div>';
+    html2+='<div class="dvals">';
+    html2+='<div class="dval pos">Sales: '+fmt(day.sales)+'</div>';
+    html2+='<div class="dval pos">Profit: '+fmt(day.profit)+'</div>';
+    if(day.expenses>0){html2+='<div class="dval neg">Expenses: '+fmt(day.expenses)+'</div>';}
+    html2+='<div class="dval '+(day.trueProfit>=0?'pos':'neg')+'">Net: '+fmt(day.trueProfit)+'</div>';
+    html2+='</div></div>';
+  });
+  dailyBreakdown.innerHTML=html2;
+}
+
+// ---- CSV EXPORT ----
+function downloadCSV(filename,rows){
+  var csv=rows.map(function(row){return row.map(function(cell){var s=String(cell==null?'':cell);if(s.indexOf(',')>-1||s.indexOf('"')>-1||s.indexOf('\n')>-1){return '"'+s.replace(/"/g,'""')+'"';}return s;}).join(',');}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function exportSales(){
+  if(sales.length===0){alert('No sales to export.');return;}
+  var rows=[['Date','Product','Quantity','Selling Price','Buying Price','Total Sale','Profit']];
+  sales.forEach(function(s){rows.push([new Date(s.timestamp).toLocaleString('en-ZA'),s.productName,s.quantity,s.sellingPrice,s.buyingPrice,s.totalSale,s.profit]);});
+  downloadCSV('sales_'+todayKey()+'.csv',rows);
+}
+function exportExpenses(){
+  if(expenses.length===0){alert('No expenses to export.');return;}
+  var rows=[['Date','Description','Category','Amount']];
+  expenses.forEach(function(e){rows.push([new Date(e.timestamp).toLocaleString('en-ZA'),e.description,e.category,e.amount]);});
+  downloadCSV('expenses_'+todayKey()+'.csv',rows);
+}
+function exportProducts(){
+  if(products.length===0){alert('No products to export.');return;}
+  var rows=[['Product','Category','Buying Price','Selling Price','Quantity','Profit Per Unit','Total Profit']];
+  products.forEach(function(p){var ppu=(p.sellingPrice||0)-(p.buyingPrice||0);rows.push([p.name,p.category,p.buyingPrice,p.sellingPrice,p.quantity,ppu,ppu*(p.quantity||0)]);});
+  downloadCSV('products_'+todayKey()+'.csv',rows);
 }
 
 function renderTable(){
@@ -364,7 +535,7 @@ function startEdit(id){var p=products.find(function(x){return x.id===id;});if(!p
 function resetF(){editingId=null;form.reset();formTitle.textContent='➕ Add new product';submitBtn.textContent='Save product';cancelEditBtn.style.display='none';updPP();}
 function resetExpForm(){expenseForm.reset();}
 function updPP(){var b=parseFloat(buyingInput.value)||0;var s=parseFloat(sellingInput.value)||0;var q=parseInt(quantityInput.value)||0;unitPP.textContent=fmt(s-b);batchPP.textContent=fmt((s-b)*q);}
-function refUI(){updDash();renderTable();renderSales();renderExpenses();if(editingId&&!products.some(function(p){return p.id===editingId;}))resetF();}
+function refUI(){updDash();updReports();renderTable();renderSales();renderExpenses();if(editingId&&!products.some(function(p){return p.id===editingId;}))resetF();}
 function openSell(id){var p=products.find(function(x){return x.id===id;});if(!p||(p.quantity||0)<=0)return;sellingProductId=id;sellProductName.textContent=p.name+' · '+p.quantity+' in stock';sellQuantity.value=1;sellQuantity.max=p.quantity;updSellPP();sellModal.classList.add('show');}
 function closeSell(){sellModal.classList.remove('show');sellingProductId=null;}
 function updSellPP(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(sellQuantity.value)||1);sellTotalPreview.textContent=fmt(q*(p.sellingPrice||0));sellProfitPreview.textContent=fmt(q*((p.sellingPrice||0)-(p.buyingPrice||0)));}
@@ -403,6 +574,19 @@ expenseForm.addEventListener('submit',function(e){
   var exp={id:gid(),description:desc,category:cat,amount:amt,timestamp:new Date().toISOString(),dateKey:todayKey()};
   expenses.push(exp);saveE();resetExpForm();refUI();
 });
+
+periodButtons.addEventListener('click',function(e){
+  if(!e.target.classList.contains('pbtn'))return;
+  var btns=periodButtons.querySelectorAll('.pbtn');
+  for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');
+  e.target.classList.add('active');
+  currentPeriod=e.target.dataset.period;
+  updReports();
+});
+
+exportSalesBtn.addEventListener('click',exportSales);
+exportExpensesBtn.addEventListener('click',exportExpenses);
+exportProductsBtn.addEventListener('click',exportProducts);
 
 cancelEditBtn.addEventListener('click',resetF);
 resetFormBtn.addEventListener('click',resetF);
