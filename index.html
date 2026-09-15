@@ -6,27 +6,21 @@
 <meta name="theme-color" content="#1e3c72">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>My Shop · Stock & Profit Manager V0.6</title>
+<title>My Shop · Stock & Profit Manager V0.7</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);min-height:100vh;display:flex;justify-content:center;padding:16px;transition:background .3s}
 .app{max-width:1200px;width:100%}
-:root{
-  --p:#1e3c72;--pl:#2a4a8a;
-  --a:#0b8f5c;--as:#e6f4ed;
-  --d:#b22234;--ds:#ffe8ec;
-  --w:#b86b1f;--ws:#fff2e0;
-  --ex:#6b21a8;--exs:#f3e8ff;
-  --g1:#f0f3f9;--g2:#e1e6ef;--g6:#4f5b6b;--g8:#1e2a3a;
-  --wt:#fff;--bg:#f5f7fc;
-  --sh:0 4px 10px rgba(0,0,0,0.02),0 2px 4px rgba(0,0,0,0.03);
-  --r:16px;--rs:10px;
-}
+:root{--p:#1e3c72;--pl:#2a4a8a;--a:#0b8f5c;--as:#e6f4ed;--d:#b22234;--ds:#ffe8ec;--w:#b86b1f;--ws:#fff2e0;--ex:#6b21a8;--exs:#f3e8ff;--g1:#f0f3f9;--g2:#e1e6ef;--g6:#4f5b6b;--g8:#1e2a3a;--wt:#fff;--bg:#f5f7fc;--sh:0 4px 10px rgba(0,0,0,0.02),0 2px 4px rgba(0,0,0,0.03);--r:16px;--rs:10px}
 h1,h2,h3{font-weight:600}
 .hdr{margin-bottom:20px;text-align:center}
 .hdr h1{font-size:2rem;color:var(--p);display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
 .hdr h1 span{background:var(--a);color:#fff;font-size:1rem;padding:4px 12px;border-radius:40px;font-weight:500}
 .hdr .subtitle{color:var(--g6);font-size:1rem;margin-top:6px}
+.hdr .sync-status{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:.75rem;padding:4px 12px;border-radius:20px;background:var(--g1);color:var(--g6);font-weight:600}
+.hdr .sync-status.synced{background:var(--as);color:var(--a)}
+.hdr .sync-status.syncing{background:var(--ws);color:var(--w)}
+.hdr .sync-status.offline{background:var(--ds);color:var(--d)}
 .dash{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
 .stat{background:var(--wt);padding:18px 16px;border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--g2)}
 .stat .l{font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;color:var(--g6);margin-bottom:6px}
@@ -55,7 +49,6 @@ h1,h2,h3{font-weight:600}
 .btn.dan{background:var(--ds);color:var(--d)}
 .btn.suc{background:var(--a);color:#fff}
 .btn.ex{background:var(--ex);color:#fff}
-.btn.ex:hover{background:#581c87}
 .btn.sm{padding:8px 14px;font-size:.8rem;border-radius:30px;flex:0 0 auto}
 .tb{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
 .sb{display:flex;align-items:center;background:var(--wt);border:1.5px solid var(--g2);border-radius:40px;padding:4px 6px 4px 18px;flex:2 1 240px}
@@ -112,7 +105,7 @@ tr:last-child td{border-bottom:none}
 .sumbox.pos .sv{color:var(--a)}
 .sumbox.neg .sv{color:var(--d)}
 .periods{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.pbtn{padding:10px 18px;border-radius:30px;border:1.5px solid var(--g2);background:var(--wt);font-weight:600;font-size:.85rem;cursor:pointer;color:var(--g6);transition:all .15s}
+.pbtn{padding:10px 18px;border-radius:30px;border:1.5px solid var(--g2);background:var(--wt);font-weight:600;font-size:.85rem;cursor:pointer;color:var(--g6)}
 .pbtn:hover{background:var(--g1)}
 .pbtn.active{background:var(--p);color:#fff;border-color:var(--p)}
 .rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
@@ -141,7 +134,6 @@ tr:last-child td{border-bottom:none}
 .daily-row .dval.neg{color:var(--d)}
 .csv-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .mobile-nav{display:none}
-/* Settings-specific */
 .theme-options{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:6px}
 .theme-btn{aspect-ratio:1;border-radius:12px;border:3px solid transparent;cursor:pointer;position:relative;transition:all .15s;box-shadow:0 2px 6px rgba(0,0,0,.1)}
 .theme-btn:hover{transform:scale(1.05)}
@@ -160,11 +152,27 @@ tr:last-child td{border-bottom:none}
 .settings-preview .sp-shop{font-size:1.5rem;font-weight:700;color:var(--p);margin-bottom:4px}
 .settings-preview .sp-sub{font-size:.85rem;color:var(--g6)}
 .settings-preview .sp-price{font-size:1.2rem;font-weight:700;color:var(--a);margin-top:10px}
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--p),var(--pl))}
+.login-card{background:#fff;border-radius:20px;padding:32px 24px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-card h1{font-size:1.7rem;color:var(--g8);text-align:center;margin-bottom:6px}
+.login-card .login-sub{text-align:center;color:var(--g6);font-size:.9rem;margin-bottom:24px}
+.login-card label{display:block;font-size:.8rem;font-weight:600;color:var(--g6);text-transform:uppercase;margin-bottom:6px;margin-top:12px}
+.login-card input{width:100%;padding:14px;border:1.5px solid var(--g2);border-radius:var(--rs);font-size:1rem;background:#fff;color:var(--g8)}
+.login-card input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(30,60,114,.1)}
+.login-card .btn-row{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.login-card .btn{padding:14px;border-radius:12px;font-size:1rem}
+.login-card .login-msg{margin-top:14px;padding:10px 14px;border-radius:var(--rs);font-size:.85rem;text-align:center;display:none}
+.login-card .login-msg.error{background:var(--ds);color:var(--d);display:block}
+.login-card .login-msg.success{background:var(--as);color:var(--a);display:block}
+.login-card .login-footer{text-align:center;font-size:.75rem;color:var(--g6);margin-top:20px;line-height:1.6}
+.login-card .toggle-mode{text-align:center;font-size:.85rem;color:var(--p);font-weight:600;cursor:pointer;margin-top:14px;text-decoration:underline}
+.hidden{display:none!important}
 @media(max-width:600px){
   body{padding:0;padding-bottom:80px}
   .app{padding:12px}
-  .hdr h1{font-size:1.5rem}
-  .hdr .subtitle{font-size:.85rem}
+  .hdr h1{font-size:1.4rem}
+  .hdr .subtitle{font-size:.8rem}
   .dash{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
   .stat{padding:14px 12px}
   .stat .l{font-size:.7rem}
@@ -228,14 +236,36 @@ tr:last-child td{border-bottom:none}
 </style>
 </head>
 <body>
-<div class="app">
 
+<!-- ========== LOGIN SCREEN ========== -->
+<div id="loginScreen" class="login-wrap">
+  <div class="login-card">
+    <h1>📦 My Shop</h1>
+    <div class="login-sub">Stock & Profit Manager V0.7</div>
+    <label for="loginEmail">Email</label>
+    <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+    <label for="loginPassword">Password</label>
+    <input type="password" id="loginPassword" placeholder="At least 6 characters" autocomplete="current-password">
+    <div class="login-msg" id="loginMsg"></div>
+    <div class="btn-row">
+      <button class="btn pri" id="loginBtn" type="button">🔐 Log In</button>
+      <button class="btn out" id="signupBtn" type="button">✨ Create Account</button>
+    </div>
+    <div class="login-footer">
+      ☁️ Data synced securely via Firebase<br>
+      Your data is private and only visible to you.
+    </div>
+  </div>
+</div>
+
+<!-- ========== MAIN APP ========== -->
+<div class="app hidden" id="mainApp">
 <header class="hdr">
-<h1>📦 <span id="hdrShopName">My Shop</span> <span style="background:var(--p);">V0.6</span></h1>
+<h1>📦 <span id="hdrShopName">My Shop</span> <span style="background:var(--p);">V0.7</span></h1>
 <div class="subtitle" id="hdrSubtitle">Stock & Profit Manager</div>
+<div class="sync-status synced" id="syncStatus"><span>☁️</span><span id="syncText">Synced</span></div>
 </header>
 
-<!-- ========== DASHBOARD ========== -->
 <div class="section active" id="sec-dashboard">
 <section class="dash">
 <div class="stat"><div class="l">Total products</div><div class="v" id="totalProducts">0</div></div>
@@ -253,7 +283,6 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<!-- ========== PRODUCTS ========== -->
 <div class="section" id="sec-products">
 <div class="card">
 <h2 id="formTitle">➕ Add new product</h2>
@@ -289,7 +318,6 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<!-- ========== SELL ========== -->
 <div class="section" id="sec-sell">
 <div class="card">
 <h2>🛒 Quick Sell</h2>
@@ -298,7 +326,6 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<!-- ========== REPORTS ========== -->
 <div class="section" id="sec-reports">
 <div class="card">
 <h2>📊 Reports</h2>
@@ -357,13 +384,12 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<!-- ========== SETTINGS (V0.6 NEW) ========== -->
 <div class="section" id="sec-settings">
 <div class="card">
 <h2>⚙️ Shop Settings</h2>
 <div class="settings-preview">
 <div class="sp-shop" id="spShop">My Shop</div>
-<div class="sp-sub">Stock & Profit Manager V0.6</div>
+<div class="sp-sub">Stock & Profit Manager V0.7</div>
 <div class="sp-price" id="spPrice">R100.00</div>
 </div>
 <div class="fgr fw" style="margin-bottom:18px;">
@@ -395,16 +421,24 @@ tr:last-child td{border-bottom:none}
 <button class="btn pri" id="saveSettingsBtn" type="button">💾 Save Settings</button>
 <button class="btn out" id="resetSettingsBtn" type="button">🔄 Reset to Defaults</button>
 </div>
+</div>
+<div class="card">
+<h2>☁️ Cloud Account</h2>
+<p style="font-size:.85rem;color:var(--g6);margin-bottom:14px;">Signed in as: <strong id="userEmail">—</strong></p>
+<div class="bg" style="flex-direction:column;">
+<button class="btn out" id="syncNowBtn" type="button">🔄 Force Sync Now</button>
+<button class="btn dan" id="logoutBtn" type="button">🚪 Log Out</button>
+</div>
 <p style="font-size:.8rem;color:var(--g6);margin-top:14px;text-align:center;">
-Your products, sales and expenses are <strong>not affected</strong> by these settings.
+Your data is synced to Firebase. Log in on any device to see the same data.
 </p>
 </div>
 </div>
 
-<div class="ft">Data in your browser · V0.6 with Customization</div>
+<div class="ft">Data synced via Firebase · V0.7 Cloud Sync</div>
 </div>
 
-<nav class="mobile-nav">
+<nav class="mobile-nav hidden" id="mobileNav">
 <button class="mnav-btn active" data-section="dashboard"><span class="mi2">🏠</span><span>Home</span></button>
 <button class="mnav-btn" data-section="products"><span class="mi2">📦</span><span>Products</span></button>
 <button class="mnav-btn" data-section="sell"><span class="mi2">🛒</span><span>Sell</span></button>
@@ -426,33 +460,99 @@ Your products, sales and expenses are <strong>not affected</strong> by these set
 </div>
 </div>
 
-<script>
-(function(){
-var KP='stock_profit_manager_products',KS='stock_profit_manager_sales_v2',KE='stock_profit_manager_expenses_v3',KSET='stock_profit_manager_settings_v6';
-var products=[],sales=[],expenses=[],settings={shopName:'My Shop',theme:'blue',currency:'R'},editingId=null,searchTerm='',sellingProductId=null,currentPeriod='today';
-function $(id){return document.getElementById(id);}
-var form=$('productForm'),formTitle=$('formTitle'),submitBtn=$('submitBtn'),cancelEditBtn=$('cancelEditBtn'),resetFormBtn=$('resetFormBtn');
-var nameInput=$('productName'),categoryInput=$('productCategory'),buyingInput=$('buyingPrice'),sellingInput=$('sellingPrice'),quantityInput=$('quantity');
-var unitPP=$('unitProfitPreview'),batchPP=$('batchProfitPreview');
-var totalP=$('totalProducts'),totalU=$('totalUnits'),totalSV=$('totalStockValue'),totalEP=$('totalExpectedProfit'),todayS=$('todaySales'),todayPr=$('todayProfit'),totalEx=$('totalExpenses'),trueP=$('trueProfit'),todayEx=$('todayExpenses'),todayTP=$('todayTrueProfit');
-var lowC=$('lowStockCount'),lowN=$('lowStockNames');
-var tableBody=$('tableBody'),productsMobile=$('productsMobile'),emptyState=$('emptyState'),searchInput=$('searchInput'),clearSearchBtn=$('clearSearchBtn');
-var salesList=$('salesList'),salesCountLabel=$('salesCountLabel'),clearSalesBtn=$('clearSalesBtn');
-var expensesList=$('expensesList'),expensesCountLabel=$('expensesCountLabel'),clearExpensesBtn=$('clearExpensesBtn');
-var expenseForm=$('expenseForm'),expenseDesc=$('expenseDesc'),expenseCategory=$('expenseCategory'),expenseAmount=$('expenseAmount'),resetExpenseBtn=$('resetExpenseBtn');
-var sellModal=$('sellModal'),sellProductName=$('sellProductName'),sellQuantity=$('sellQuantity'),sellTotalPreview=$('sellTotalPreview'),sellProfitPreview=$('sellProfitPreview'),cancelSellBtn=$('cancelSellBtn'),confirmSellBtn=$('confirmSellBtn');
-var periodButtons=$('periodButtons');
-var repSales=$('repSales'),repProfit=$('repProfit'),repExpenses=$('repExpenses'),repTrueProfit=$('repTrueProfit'),repTrueCard=$('repTrueCard'),repSaleCount=$('repSaleCount'),repAvgSale=$('repAvgSale');
-var topProducts=$('topProducts'),dailyBreakdown=$('dailyBreakdown'),quickSellList=$('quickSellList');
-var exportSalesBtn=$('exportSalesBtn'),exportExpensesBtn=$('exportExpensesBtn'),exportProductsBtn=$('exportProductsBtn');
-var mnavBtns=document.querySelectorAll('.mnav-btn');
-var hdrShopName=$('hdrShopName'),shopNameInput=$('shopNameInput'),themeOptions=$('themeOptions'),currencyOptions=$('currencyOptions'),saveSettingsBtn=$('saveSettingsBtn'),resetSettingsBtn=$('resetSettingsBtn'),spShop=$('spShop'),spPrice=$('spPrice');
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-function fmt(v){return settings.currency+Number(v).toFixed(2);}
-function gid(){return Date.now().toString(36)+Math.random().toString(36).substring(2,8);}
-function todayKey(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function fmtDate(iso){var d=new Date(iso);return d.toLocaleString('en-ZA',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});}
-function esc(t){if(!t)return '';return String(t).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+const firebaseConfig = {
+  apiKey: "AIzaSyDg8QBGcYPOpOVScdapC5TH8xVqMWUewKQ",
+  authDomain: "stock-profit-manager.firebaseapp.com",
+  projectId: "stock-profit-manager",
+  storageBucket: "stock-profit-manager.firebasestorage.app",
+  messagingSenderId: "636748139603",
+  appId: "1:636748139603:web:394df06320ebdf6af74aa6",
+  measurementId: "G-LXVCXGFJZC"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const auth = getAuth(fbApp);
+const db = getFirestore(fbApp);
+
+var currentUser = null;
+var products=[],sales=[],expenses=[],settings={shopName:'My Shop',theme:'blue',currency:'R'},editingId=null,searchTerm='',sellingProductId=null,currentPeriod='today';
+var syncTimer=null, pendingSync=false;
+
+function $(id){return document.getElementById(id);}
+var loginScreen=$('loginScreen'),mainApp=$('mainApp'),mobileNav=$('mobileNav');
+var loginEmail=$('loginEmail'),loginPassword=$('loginPassword'),loginBtn=$('loginBtn'),signupBtn=$('signupBtn'),loginMsg=$('loginMsg');
+var hdrShopName=$('hdrShopName'),syncStatus=$('syncStatus'),syncText=$('syncText');
+var userEmail=$('userEmail'),logoutBtn=$('logoutBtn'),syncNowBtn=$('syncNowBtn');
+
+function setSyncStatus(status){
+  var cls='sync-status '+status;
+  syncStatus.className=cls;
+  if(status==='synced')syncText.textContent='Synced';
+  else if(status==='syncing')syncText.textContent='Syncing...';
+  else if(status==='offline')syncText.textContent='Offline';
+}
+
+function showLoginMsg(text,type){
+  loginMsg.textContent=text;
+  loginMsg.className='login-msg '+(type||'');
+}
+function hideLoginMsg(){loginMsg.className='login-msg';}
+  
+async function syncToCloud(){
+  if(!currentUser){return;}
+  setSyncStatus('syncing');
+  try{
+    var userRef=doc(db,'users',currentUser.uid);
+    await setDoc(userRef,{
+      products:products,
+      sales:sales,
+      expenses:expenses,
+      settings:settings,
+      updatedAt:new Date().toISOString()
+    });
+    setSyncStatus('synced');
+  }catch(err){
+    console.error('Sync error:',err);
+    setSyncStatus('offline');
+  }
+}
+
+function scheduleSync(){
+  if(syncTimer)clearTimeout(syncTimer);
+  syncTimer=setTimeout(function(){syncToCloud();},800);
+}
+
+async function loadFromCloud(){
+  if(!currentUser){return false;}
+  setSyncStatus('syncing');
+  try{
+    var userRef=doc(db,'users',currentUser.uid);
+    var snap=await getDoc(userRef);
+    if(snap.exists()){
+      var data=snap.data();
+      products=Array.isArray(data.products)?data.products:[];
+      sales=Array.isArray(data.sales)?data.sales:[];
+      expenses=Array.isArray(data.expenses)?data.expenses:[];
+      if(data.settings&&typeof data.settings==='object'){
+        settings={shopName:data.settings.shopName||'My Shop',theme:data.settings.theme||'blue',currency:data.settings.currency||'R'};
+      }
+      setSyncStatus('synced');
+      return true;
+    }else{
+      setSyncStatus('synced');
+      return false;
+    }
+  }catch(err){
+    console.error('Load error:',err);
+    setSyncStatus('offline');
+    return false;
+  }
+}
 
 var THEMES={
   blue:{p:'#1e3c72',pl:'#2a4a8a',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#f5f7fc'},
@@ -462,27 +562,11 @@ var THEMES={
   red:{p:'#b22234',pl:'#8b1a2a',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#fef2f2'}
 };
 
-function loadAll(){
-  var p=localStorage.getItem(KP);
-  if(p){try{products=JSON.parse(p)||[];}catch(e){products=[];}}
-  if(!Array.isArray(products)||products.length===0){
-    products=[
-      {id:gid(),name:'Coca-Cola 500ml',category:'Drinks',buyingPrice:10,sellingPrice:15,quantity:24},
-      {id:gid(),name:'Simba Chips 125g',category:'Snacks',buyingPrice:12,sellingPrice:18,quantity:8},
-      {id:gid(),name:'White Bread',category:'Groceries',buyingPrice:14,sellingPrice:20,quantity:3},
-      {id:gid(),name:'Hand Sanitizer 100ml',category:'Personal Care',buyingPrice:18,sellingPrice:30,quantity:2}
-    ];
-    saveP();
-  }
-  var s=localStorage.getItem(KS);sales=s?(JSON.parse(s)||[]):[];if(!Array.isArray(sales))sales=[];
-  var e=localStorage.getItem(KE);expenses=e?(JSON.parse(e)||[]):[];if(!Array.isArray(expenses))expenses=[];
-  var st=localStorage.getItem(KSET);
-  if(st){try{var parsed=JSON.parse(st);if(parsed&&typeof parsed==='object'){settings={shopName:parsed.shopName||'My Shop',theme:parsed.theme||'blue',currency:parsed.currency||'R'};}}catch(e){}}
-}
-function saveP(){localStorage.setItem(KP,JSON.stringify(products));}
-function saveS(){localStorage.setItem(KS,JSON.stringify(sales));}
-function saveE(){localStorage.setItem(KE,JSON.stringify(expenses));}
-function saveSet(){localStorage.setItem(KSET,JSON.stringify(settings));}
+function fmt(v){return settings.currency+Number(v).toFixed(2);}
+function gid(){return Date.now().toString(36)+Math.random().toString(36).substring(2,8);}
+function todayKey(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function fmtDate(iso){var d=new Date(iso);return d.toLocaleString('en-ZA',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});}
+function esc(t){if(!t)return '';return String(t).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
 
 function applyTheme(){
   var t=THEMES[settings.theme]||THEMES.blue;
@@ -496,21 +580,21 @@ function applyTheme(){
   var meta=document.querySelector('meta[name="theme-color"]');
   if(meta)meta.setAttribute('content',t.p);
   hdrShopName.textContent=settings.shopName||'My Shop';
-  document.title=settings.shopName+' · Stock & Profit Manager V0.6';
-  spShop.textContent=settings.shopName||'My Shop';
-  spPrice.textContent=settings.currency+'100.00';
-  shopNameInput.value=settings.shopName||'';
-  var tbs=themeOptions.querySelectorAll('.theme-btn');
+  document.title=settings.shopName+' · Stock & Profit Manager V0.7';
+  document.getElementById('spShop').textContent=settings.shopName||'My Shop';
+  document.getElementById('spPrice').textContent=settings.currency+'100.00';
+  document.getElementById('shopNameInput').value=settings.shopName||'';
+  var tbs=document.getElementById('themeOptions').querySelectorAll('.theme-btn');
   for(var i=0;i<tbs.length;i++){tbs[i].classList.toggle('active',tbs[i].dataset.theme===settings.theme);}
-  var cbs=currencyOptions.querySelectorAll('.currency-btn');
+  var cbs=document.getElementById('currencyOptions').querySelectorAll('.currency-btn');
   for(var j=0;j<cbs.length;j++){cbs[j].classList.toggle('active',cbs[j].dataset.currency===settings.currency);}
 }
 
 function updDash(){
-  totalP.textContent=products.length;
-  totalU.textContent=products.reduce(function(s,p){return s+(p.quantity||0);},0);
-  totalSV.textContent=fmt(products.reduce(function(s,p){return s+(p.buyingPrice||0)*(p.quantity||0);},0));
-  totalEP.textContent=fmt(products.reduce(function(s,p){return s+((p.sellingPrice||0)-(p.buyingPrice||0))*(p.quantity||0);},0));
+  document.getElementById('totalProducts').textContent=products.length;
+  document.getElementById('totalUnits').textContent=products.reduce(function(s,p){return s+(p.quantity||0);},0);
+  document.getElementById('totalStockValue').textContent=fmt(products.reduce(function(s,p){return s+(p.buyingPrice||0)*(p.quantity||0);},0));
+  document.getElementById('totalExpectedProfit').textContent=fmt(products.reduce(function(s,p){return s+((p.sellingPrice||0)-(p.buyingPrice||0))*(p.quantity||0);},0));
   var t=todayKey();
   var ts=sales.filter(function(s){return s.dateKey===t;});
   var te=expenses.filter(function(e){return e.dateKey===t;});
@@ -518,21 +602,22 @@ function updDash(){
   var expensesAllTime=expenses.reduce(function(s,x){return s+x.amount;},0);
   var todaySalesTotal=ts.reduce(function(s,x){return s+x.totalSale;},0);
   var todayExpensesTotal=te.reduce(function(s,x){return s+x.amount;},0);
-  todayS.textContent=fmt(todaySalesTotal);
-  todayPr.textContent=fmt(ts.reduce(function(s,x){return s+x.profit;},0));
-  totalEx.textContent=fmt(expensesAllTime);
-  trueP.textContent=fmt(salesAllTime-expensesAllTime);
-  todayEx.textContent=fmt(todayExpensesTotal);
-  todayTP.textContent=fmt(todaySalesTotal-todayExpensesTotal);
+  document.getElementById('todaySales').textContent=fmt(todaySalesTotal);
+  document.getElementById('todayProfit').textContent=fmt(ts.reduce(function(s,x){return s+x.profit;},0));
+  document.getElementById('totalExpenses').textContent=fmt(expensesAllTime);
+  document.getElementById('trueProfit').textContent=fmt(salesAllTime-expensesAllTime);
+  document.getElementById('todayExpenses').textContent=fmt(todayExpensesTotal);
+  document.getElementById('todayTrueProfit').textContent=fmt(todaySalesTotal-todayExpensesTotal);
   var low=products.filter(function(p){return (p.quantity||0)<=3;});
-  lowC.textContent=low.length;
-  if(low.length>0){var n=low.map(function(p){return p.name;}).join(', ');lowN.textContent=n.substring(0,50)+(n.length>50?'…':'');}
-  else{lowN.textContent='—';}
+  document.getElementById('lowStockCount').textContent=low.length;
+  if(low.length>0){var n=low.map(function(p){return p.name;}).join(', ');document.getElementById('lowStockNames').textContent=n.substring(0,50)+(n.length>50?'…':'');}
+  else{document.getElementById('lowStockNames').textContent='—';}
 }
 
 function renderTable(){
   var filtered=products;
   if(searchTerm.trim()){var term=searchTerm.trim().toLowerCase();filtered=products.filter(function(p){return p.name.toLowerCase().indexOf(term)>-1||(p.category||'').toLowerCase().indexOf(term)>-1;});}
+  var tableBody=document.getElementById('tableBody'),productsMobile=document.getElementById('productsMobile'),emptyState=document.getElementById('emptyState');
   if(filtered.length===0){tableBody.innerHTML='';productsMobile.innerHTML='';emptyState.style.display='block';emptyState.textContent=products.length===0?'No products yet.':'No products match your search.';return;}
   emptyState.style.display='none';
   var html='',mhtml='';
@@ -559,40 +644,41 @@ function renderTable(){
 }
 
 function renderSales(){
-  salesCountLabel.textContent='('+sales.length+')';
-  if(sales.length===0){salesList.innerHTML='<div class="em">No sales yet.</div>';return;}
+  var el=document.getElementById('salesList');document.getElementById('salesCountLabel').textContent='('+sales.length+')';
+  if(sales.length===0){el.innerHTML='<div class="em">No sales yet.</div>';return;}
   var sorted=sales.slice().sort(function(a,b){return new Date(b.timestamp)-new Date(a.timestamp);});
   var html='';
   sorted.slice(0,100).forEach(function(s){
     html+='<div class="si"><div class="sinfo"><div class="sname">'+esc(s.productName)+'</div><div class="smeta">'+s.quantity+' × '+fmt(s.sellingPrice)+' · '+fmtDate(s.timestamp)+'</div></div><div style="text-align:right;"><div class="samt">'+fmt(s.totalSale)+'</div><div class="sprof">+'+fmt(s.profit)+'</div></div></div>';
   });
-  salesList.innerHTML=html;
+  el.innerHTML=html;
 }
 
 function renderExpenses(){
-  expensesCountLabel.textContent='('+expenses.length+')';
-  if(expenses.length===0){expensesList.innerHTML='<div class="em">No expenses yet.</div>';return;}
+  var el=document.getElementById('expensesList');document.getElementById('expensesCountLabel').textContent='('+expenses.length+')';
+  if(expenses.length===0){el.innerHTML='<div class="em">No expenses yet.</div>';return;}
   var sorted=expenses.slice().sort(function(a,b){return new Date(b.timestamp)-new Date(a.timestamp);});
   var html='';
   sorted.slice(0,100).forEach(function(e){
     html+='<div class="ei"><div class="einfo"><div class="ename">'+esc(e.description)+'<span class="ebadge">'+esc(e.category)+'</span></div><div class="emeta">'+fmtDate(e.timestamp)+'</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="eamt">−'+fmt(e.amount)+'</div><button class="btn dan sm delExp" data-id="'+e.id+'" style="padding:6px 10px;">🗑</button></div></div>';
   });
-  expensesList.innerHTML=html;
-  var dbs=expensesList.querySelectorAll('.delExp');
+  el.innerHTML=html;
+  var dbs=el.querySelectorAll('.delExp');
   for(var i=0;i<dbs.length;i++){dbs[i].addEventListener('click',function(e){delExp(e.currentTarget.dataset.id);});}
 }
 
 function renderQuickSell(){
-  if(products.length===0){quickSellList.innerHTML='<div class="em">Add products first.</div>';return;}
+  var el=document.getElementById('quickSellList');
+  if(products.length===0){el.innerHTML='<div class="em">Add products first.</div>';return;}
   var sorted=products.slice().filter(function(p){return (p.quantity||0)>0;}).sort(function(a,b){return (b.quantity||0)-(a.quantity||0);}).slice(0,10);
-  if(sorted.length===0){quickSellList.innerHTML='<div class="em">No products in stock.</div>';return;}
+  if(sorted.length===0){el.innerHTML='<div class="em">No products in stock.</div>';return;}
   var html='';
   sorted.forEach(function(p){
     var ppu=(p.sellingPrice||0)-(p.buyingPrice||0);
     html+='<div class="top-item" style="cursor:pointer;" data-qid="'+p.id+'"><div class="top-rank">'+p.quantity+'</div><div class="top-info"><div class="top-name">'+esc(p.name)+'</div><div class="top-meta">'+fmt(p.sellingPrice)+' · +'+fmt(ppu)+' profit/u</div></div><div class="top-val" style="font-size:1.5rem;">🛒</div></div>';
   });
-  quickSellList.innerHTML=html;
-  var items=quickSellList.querySelectorAll('[data-qid]');
+  el.innerHTML=html;
+  var items=el.querySelectorAll('[data-qid]');
   for(var i=0;i<items.length;i++){items[i].addEventListener('click',function(e){openSell(e.currentTarget.dataset.qid);});}
 }
 
@@ -613,17 +699,17 @@ function updReports(){
   var trueProfit=totalSales-totalExp;
   var saleCount=sFiltered.length;
   var avgSale=saleCount>0?totalSales/saleCount:0;
-  repSales.textContent=fmt(totalSales);repProfit.textContent=fmt(totalProfit);repExpenses.textContent=fmt(totalExp);repTrueProfit.textContent=fmt(trueProfit);repSaleCount.textContent=saleCount;repAvgSale.textContent=fmt(avgSale);
-  repTrueCard.className=trueProfit>=0?'rep-card pos':'rep-card neg';
+  document.getElementById('repSales').textContent=fmt(totalSales);document.getElementById('repProfit').textContent=fmt(totalProfit);document.getElementById('repExpenses').textContent=fmt(totalExp);document.getElementById('repTrueProfit').textContent=fmt(trueProfit);document.getElementById('repSaleCount').textContent=saleCount;document.getElementById('repAvgSale').textContent=fmt(avgSale);
+  document.getElementById('repTrueCard').className=trueProfit>=0?'rep-card pos':'rep-card neg';
   var byProd={};
   sFiltered.forEach(function(s){if(!byProd[s.productName])byProd[s.productName]={name:s.productName,qty:0,sales:0,profit:0};byProd[s.productName].qty+=s.quantity;byProd[s.productName].sales+=s.totalSale;byProd[s.productName].profit+=s.profit;});
   var top=Object.keys(byProd).map(function(k){return byProd[k];}).sort(function(a,b){return b.profit-a.profit;}).slice(0,5);
-  if(top.length===0){topProducts.innerHTML='<div class="em">No sales in this period.</div>';}
-  else{var h='';top.forEach(function(t,i){var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';h+='<div class="top-item"><div class="top-rank '+rc+'">'+(i+1)+'</div><div class="top-info"><div class="top-name">'+esc(t.name)+'</div><div class="top-meta">'+t.qty+' sold · '+fmt(t.sales)+'</div></div><div class="top-val">+'+fmt(t.profit)+'</div></div>';});topProducts.innerHTML=h;}
+  if(top.length===0){document.getElementById('topProducts').innerHTML='<div class="em">No sales in this period.</div>';}
+  else{var h='';top.forEach(function(t,i){var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';h+='<div class="top-item"><div class="top-rank '+rc+'">'+(i+1)+'</div><div class="top-info"><div class="top-name">'+esc(t.name)+'</div><div class="top-meta">'+t.qty+' sold · '+fmt(t.sales)+'</div></div><div class="top-val">+'+fmt(t.profit)+'</div></div>';});document.getElementById('topProducts').innerHTML=h;}
   var days=[];
   for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var dl=d.toLocaleDateString('en-ZA',{weekday:'short',day:'2-digit',month:'short'});var dS=sales.filter(function(s){return s.dateKey===key;});var dE=expenses.filter(function(e){return e.dateKey===key;});var ds=dS.reduce(function(a,s){return a+s.totalSale;},0);var dp=dS.reduce(function(a,s){return a+s.profit;},0);var de=dE.reduce(function(a,e){return a+e.amount;},0);days.push({label:dl,sales:ds,profit:dp,expenses:de,trueProfit:ds-de});}
   var h2='';days.forEach(function(day){h2+='<div class="daily-row"><div class="dlabel">'+day.label+'</div><div class="dvals"><div class="dval pos">Sales: '+fmt(day.sales)+'</div><div class="dval pos">Profit: '+fmt(day.profit)+'</div>'+(day.expenses>0?'<div class="dval neg">Exp: '+fmt(day.expenses)+'</div>':'')+'<div class="dval '+(day.trueProfit>=0?'pos':'neg')+'">Net: '+fmt(day.trueProfit)+'</div></div></div>';});
-  dailyBreakdown.innerHTML=h2;
+  document.getElementById('dailyBreakdown').innerHTML=h2;
 }
 
 function downloadCSV(filename,rows){
@@ -638,48 +724,108 @@ function exportProducts(){if(products.length===0){alert('No products to export.'
 function adjQty(id,d){var p=products.find(function(x){return x.id===id;});if(!p)return;p.quantity=Math.max(0,(p.quantity||0)+d);saveP();refUI();}
 function delProd(id){if(confirm('Delete this product?')){products=products.filter(function(p){return p.id!==id;});saveP();if(editingId===id)resetF();refUI();}}
 function delExp(id){if(confirm('Delete this expense?')){expenses=expenses.filter(function(e){return e.id!==id;});saveE();refUI();}}
-function startEdit(id){var p=products.find(function(x){return x.id===id;});if(!p)return;editingId=id;nameInput.value=p.name||'';categoryInput.value=p.category||'';buyingInput.value=p.buyingPrice!==undefined?p.buyingPrice:'';sellingInput.value=p.sellingPrice!==undefined?p.sellingPrice:'';quantityInput.value=p.quantity!==undefined?p.quantity:0;formTitle.textContent='✎ Edit product';submitBtn.textContent='Update product';cancelEditBtn.style.display='inline-flex';updPP();form.scrollIntoView({behavior:'smooth',block:'center'});}
-function resetF(){editingId=null;form.reset();formTitle.textContent='➕ Add new product';submitBtn.textContent='Save product';cancelEditBtn.style.display='none';updPP();}
-function resetExpForm(){expenseForm.reset();}
-function updPP(){var b=parseFloat(buyingInput.value)||0;var s=parseFloat(sellingInput.value)||0;var q=parseInt(quantityInput.value)||0;unitPP.textContent=fmt(s-b);batchPP.textContent=fmt((s-b)*q);}
+function startEdit(id){var p=products.find(function(x){return x.id===id;});if(!p)return;editingId=id;document.getElementById('productName').value=p.name||'';document.getElementById('productCategory').value=p.category||'';document.getElementById('buyingPrice').value=p.buyingPrice!==undefined?p.buyingPrice:'';document.getElementById('sellingPrice').value=p.sellingPrice!==undefined?p.sellingPrice:'';document.getElementById('quantity').value=p.quantity!==undefined?p.quantity:0;document.getElementById('formTitle').textContent='✎ Edit product';document.getElementById('submitBtn').textContent='Update product';document.getElementById('cancelEditBtn').style.display='inline-flex';updPP();document.getElementById('productForm').scrollIntoView({behavior:'smooth',block:'center'});}
+function resetF(){editingId=null;document.getElementById('productForm').reset();document.getElementById('formTitle').textContent='➕ Add new product';document.getElementById('submitBtn').textContent='Save product';document.getElementById('cancelEditBtn').style.display='none';updPP();}
+function resetExpForm(){document.getElementById('expenseForm').reset();}
+function updPP(){var b=parseFloat(document.getElementById('buyingPrice').value)||0;var s=parseFloat(document.getElementById('sellingPrice').value)||0;var q=parseInt(document.getElementById('quantity').value)||0;document.getElementById('unitProfitPreview').textContent=fmt(s-b);document.getElementById('batchProfitPreview').textContent=fmt((s-b)*q);}
 function refUI(){updDash();updReports();renderTable();renderSales();renderExpenses();renderQuickSell();if(editingId&&!products.some(function(p){return p.id===editingId;}))resetF();}
-function openSell(id){var p=products.find(function(x){return x.id===id;});if(!p||(p.quantity||0)<=0)return;sellingProductId=id;sellProductName.textContent=p.name+' · '+p.quantity+' in stock';sellQuantity.value=1;sellQuantity.max=p.quantity;updSellPP();sellModal.classList.add('show');}
-function closeSell(){sellModal.classList.remove('show');sellingProductId=null;}
-function updSellPP(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(sellQuantity.value)||1);sellTotalPreview.textContent=fmt(q*(p.sellingPrice||0));sellProfitPreview.textContent=fmt(q*((p.sellingPrice||0)-(p.buyingPrice||0)));}
-function confirmSale(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(sellQuantity.value)||1);if(q>p.quantity){alert('Only '+p.quantity+' available.');return;}
+function openSell(id){var p=products.find(function(x){return x.id===id;});if(!p||(p.quantity||0)<=0)return;sellingProductId=id;document.getElementById('sellProductName').textContent=p.name+' · '+p.quantity+' in stock';document.getElementById('sellQuantity').value=1;document.getElementById('sellQuantity').max=p.quantity;updSellPP();document.getElementById('sellModal').classList.add('show');}
+function closeSell(){document.getElementById('sellModal').classList.remove('show');sellingProductId=null;}
+function updSellPP(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(document.getElementById('sellQuantity').value)||1);document.getElementById('sellTotalPreview').textContent=fmt(q*(p.sellingPrice||0));document.getElementById('sellProfitPreview').textContent=fmt(q*((p.sellingPrice||0)-(p.buyingPrice||0)));}
+function confirmSale(){var p=products.find(function(x){return x.id===sellingProductId;});if(!p)return;var q=Math.max(1,parseInt(document.getElementById('sellQuantity').value)||1);if(q>p.quantity){alert('Only '+p.quantity+' available.');return;}
   var sale={id:gid(),productId:p.id,productName:p.name,quantity:q,sellingPrice:p.sellingPrice,buyingPrice:p.buyingPrice,totalSale:q*p.sellingPrice,profit:q*(p.sellingPrice-p.buyingPrice),timestamp:new Date().toISOString(),dateKey:todayKey()};
   sales.push(sale);p.quantity-=q;saveS();saveP();closeSell();refUI();
 }
 
-form.addEventListener('submit',function(e){e.preventDefault();var name=nameInput.value.trim();var category=categoryInput.value.trim()||'Other';var buyingPrice=parseFloat(buyingInput.value);var sellingPrice=parseFloat(sellingInput.value);var quantity=parseInt(quantityInput.value,10);if(!name){alert('Enter a product name.');return;}if(isNaN(buyingPrice)||buyingPrice<0){alert('Buying price must be positive.');return;}if(isNaN(sellingPrice)||sellingPrice<0){alert('Selling price must be positive.');return;}if(isNaN(quantity)||quantity<0){alert('Quantity must be 0 or more.');return;}if(editingId){var idx=products.findIndex(function(p){return p.id===editingId;});if(idx!==-1){products[idx].name=name;products[idx].category=category;products[idx].buyingPrice=buyingPrice;products[idx].sellingPrice=sellingPrice;products[idx].quantity=quantity;}}else{products.push({id:gid(),name:name,category:category,buyingPrice:buyingPrice,sellingPrice:sellingPrice,quantity:quantity});}saveP();resetF();refUI();});
-expenseForm.addEventListener('submit',function(e){e.preventDefault();var desc=expenseDesc.value.trim();var cat=expenseCategory.value;var amt=parseFloat(expenseAmount.value);if(!desc){alert('Enter description.');return;}if(isNaN(amt)||amt<=0){alert('Amount must be > 0.');return;}expenses.push({id:gid(),description:desc,category:cat,amount:amt,timestamp:new Date().toISOString(),dateKey:todayKey()});saveE();resetExpForm();refUI();});
-periodButtons.addEventListener('click',function(e){if(!e.target.classList.contains('pbtn'))return;var btns=periodButtons.querySelectorAll('.pbtn');for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');e.target.classList.add('active');currentPeriod=e.target.dataset.period;updReports();});
-mnavBtns.forEach(function(btn){btn.addEventListener('click',function(){mnavBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});var sec=$('sec-'+btn.dataset.section);if(sec)sec.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+function saveP(){scheduleSync();}
+function saveS(){scheduleSync();}
+function saveE(){scheduleSync();}
+function saveSet(){scheduleSync();}
 
-themeOptions.addEventListener('click',function(e){var t=e.target.closest('.theme-btn');if(!t)return;settings.theme=t.dataset.theme;applyTheme();});
-currencyOptions.addEventListener('click',function(e){var c=e.target.closest('.currency-btn');if(!c)return;settings.currency=c.dataset.currency;applyTheme();});
-shopNameInput.addEventListener('input',function(){spShop.textContent=shopNameInput.value||'My Shop';});
-saveSettingsBtn.addEventListener('click',function(){settings.shopName=shopNameInput.value.trim()||'My Shop';saveSet();applyTheme();refUI();alert('✓ Settings saved!');});
-resetSettingsBtn.addEventListener('click',function(){if(confirm('Reset settings to defaults? Your products, sales and expenses will NOT be affected.')){settings={shopName:'My Shop',theme:'blue',currency:'R'};saveSet();applyTheme();refUI();}});
+function attachEvents(){
+  document.getElementById('productForm').addEventListener('submit',function(e){e.preventDefault();var name=document.getElementById('productName').value.trim();var category=document.getElementById('productCategory').value.trim()||'Other';var buyingPrice=parseFloat(document.getElementById('buyingPrice').value);var sellingPrice=parseFloat(document.getElementById('sellingPrice').value);var quantity=parseInt(document.getElementById('quantity').value,10);if(!name){alert('Enter a product name.');return;}if(isNaN(buyingPrice)||buyingPrice<0){alert('Buying price must be positive.');return;}if(isNaN(sellingPrice)||sellingPrice<0){alert('Selling price must be positive.');return;}if(isNaN(quantity)||quantity<0){alert('Quantity must be 0 or more.');return;}if(editingId){var idx=products.findIndex(function(p){return p.id===editingId;});if(idx!==-1){products[idx].name=name;products[idx].category=category;products[idx].buyingPrice=buyingPrice;products[idx].sellingPrice=sellingPrice;products[idx].quantity=quantity;}}else{products.push({id:gid(),name:name,category:category,buyingPrice:buyingPrice,sellingPrice:sellingPrice,quantity:quantity});}saveP();resetF();refUI();});
+  document.getElementById('expenseForm').addEventListener('submit',function(e){e.preventDefault();var desc=document.getElementById('expenseDesc').value.trim();var cat=document.getElementById('expenseCategory').value;var amt=parseFloat(document.getElementById('expenseAmount').value);if(!desc){alert('Enter description.');return;}if(isNaN(amt)||amt<=0){alert('Amount must be > 0.');return;}expenses.push({id:gid(),description:desc,category:cat,amount:amt,timestamp:new Date().toISOString(),dateKey:todayKey()});saveE();resetExpForm();refUI();});
+  document.getElementById('periodButtons').addEventListener('click',function(e){if(!e.target.classList.contains('pbtn'))return;var btns=document.getElementById('periodButtons').querySelectorAll('.pbtn');for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');e.target.classList.add('active');currentPeriod=e.target.dataset.period;updReports();});
+  var mnavBtns=document.querySelectorAll('.mnav-btn');
+  mnavBtns.forEach(function(btn){btn.addEventListener('click',function(){mnavBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});var sec=document.getElementById('sec-'+btn.dataset.section);if(sec)sec.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+  document.getElementById('themeOptions').addEventListener('click',function(e){var t=e.target.closest('.theme-btn');if(!t)return;settings.theme=t.dataset.theme;applyTheme();});
+  document.getElementById('currencyOptions').addEventListener('click',function(e){var c=e.target.closest('.currency-btn');if(!c)return;settings.currency=c.dataset.currency;applyTheme();});
+  document.getElementById('shopNameInput').addEventListener('input',function(){document.getElementById('spShop').textContent=document.getElementById('shopNameInput').value||'My Shop';});
+  document.getElementById('saveSettingsBtn').addEventListener('click',function(){settings.shopName=document.getElementById('shopNameInput').value.trim()||'My Shop';saveSet();applyTheme();refUI();alert('✓ Settings saved!');});
+  document.getElementById('resetSettingsBtn').addEventListener('click',function(){if(confirm('Reset settings to defaults? Your products, sales and expenses are NOT affected.')){settings={shopName:'My Shop',theme:'blue',currency:'R'};saveSet();applyTheme();refUI();}});
+  document.getElementById('exportSalesBtn').addEventListener('click',exportSales);
+  document.getElementById('exportExpensesBtn').addEventListener('click',exportExpenses);
+  document.getElementById('exportProductsBtn').addEventListener('click',exportProducts);
+  document.getElementById('cancelEditBtn').addEventListener('click',resetF);
+  document.getElementById('resetFormBtn').addEventListener('click',resetF);
+  document.getElementById('resetExpenseBtn').addEventListener('click',resetExpForm);
+  document.getElementById('buyingPrice').addEventListener('input',updPP);document.getElementById('sellingPrice').addEventListener('input',updPP);document.getElementById('quantity').addEventListener('input',updPP);
+  document.getElementById('searchInput').addEventListener('input',function(e){searchTerm=e.target.value;renderTable();});
+  document.getElementById('clearSearchBtn').addEventListener('click',function(){document.getElementById('searchInput').value='';searchTerm='';renderTable();});
+  document.getElementById('clearSalesBtn').addEventListener('click',function(){if(sales.length===0)return;if(confirm('Clear all sales? Cannot be undone.')){sales=[];saveS();refUI();}});
+  document.getElementById('clearExpensesBtn').addEventListener('click',function(){if(expenses.length===0)return;if(confirm('Clear all expenses? Cannot be undone.')){expenses=[];saveE();refUI();}});
+  document.getElementById('cancelSellBtn').addEventListener('click',closeSell);
+  document.getElementById('sellQuantity').addEventListener('input',updSellPP);
+  document.getElementById('confirmSellBtn').addEventListener('click',confirmSale);
+  document.getElementById('sellModal').addEventListener('click',function(e){if(e.target===document.getElementById('sellModal'))closeSell();});
+  document.getElementById('logoutBtn').addEventListener('click',function(){if(confirm('Log out? Data stays in the cloud.')){signOut(auth);}});
+  document.getElementById('syncNowBtn').addEventListener('click',function(){syncToCloud();});
+}
 
-exportSalesBtn.addEventListener('click',exportSales);
-exportExpensesBtn.addEventListener('click',exportExpenses);
-exportProductsBtn.addEventListener('click',exportProducts);
-cancelEditBtn.addEventListener('click',resetF);
-resetFormBtn.addEventListener('click',resetF);
-resetExpenseBtn.addEventListener('click',resetExpForm);
-buyingInput.addEventListener('input',updPP);sellingInput.addEventListener('input',updPP);quantityInput.addEventListener('input',updPP);
-searchInput.addEventListener('input',function(e){searchTerm=e.target.value;renderTable();});
-clearSearchBtn.addEventListener('click',function(){searchInput.value='';searchTerm='';renderTable();});
-clearSalesBtn.addEventListener('click',function(){if(sales.length===0)return;if(confirm('Clear all sales? Cannot be undone.')){sales=[];saveS();refUI();}});
-clearExpensesBtn.addEventListener('click',function(){if(expenses.length===0)return;if(confirm('Clear all expenses? Cannot be undone.')){expenses=[];saveE();refUI();}});
-cancelSellBtn.addEventListener('click',closeSell);
-sellQuantity.addEventListener('input',updSellPP);
-confirmSellBtn.addEventListener('click',confirmSale);
-sellModal.addEventListener('click',function(e){if(e.target===sellModal)closeSell();});
+function showApp(){
+  loginScreen.classList.add('hidden');
+  mainApp.classList.remove('hidden');
+  mobileNav.classList.remove('hidden');
+  document.getElementById('userEmail').textContent=currentUser?currentUser.email:'';
+}
 
-loadAll();applyTheme();refUI();resetF();updPP();
-})();
+function showLogin(){
+  mainApp.classList.add('hidden');
+  mobileNav.classList.add('hidden');
+  loginScreen.classList.remove('hidden');
+}
+
+loginBtn.addEventListener('click',async function(){
+  var email=loginEmail.value.trim();
+  var pass=loginPassword.value;
+  if(!email||!pass){showLoginMsg('Please enter email and password.','error');return;}
+  showLoginMsg('Logging in...','success');
+  try{await signInWithEmailAndPassword(auth,email,pass);}
+  catch(err){var msg=err.code==='auth/invalid-credential'?'Wrong email or password.':err.code==='auth/user-not-found'?'No account with that email. Click "Create Account" below.':err.code==='auth/wrong-password'?'Wrong password.':err.message;showLoginMsg(msg,'error');}
+});
+
+signupBtn.addEventListener('click',async function(){
+  var email=loginEmail.value.trim();
+  var pass=loginPassword.value;
+  if(!email||!pass){showLoginMsg('Please enter email and password.','error');return;}
+  if(pass.length<6){showLoginMsg('Password must be at least 6 characters.','error');return;}
+  showLoginMsg('Creating account...','success');
+  try{await createUserWithEmailAndPassword(auth,email,pass);}
+  catch(err){var msg=err.code==='auth/email-already-in-use'?'That email already has an account. Click "Log In" instead.':err.code==='auth/invalid-email'?'Invalid email format.':err.code==='auth/weak-password'?'Password too weak (min 6 characters).':err.message;showLoginMsg(msg,'error');}
+});
+
+onAuthStateChanged(auth,async function(user){
+  if(user){
+    currentUser=user;
+    hideLoginMsg();
+    loginPassword.value='';
+    var hadData=await loadFromCloud();
+    if(!hadData){settings={shopName:'My Shop',theme:'blue',currency:'R'};}
+    attachEvents();
+    applyTheme();
+    refUI();
+    resetF();
+    updPP();
+    showApp();
+  }else{
+    currentUser=null;
+    showLogin();
+  }
+});
+
+window.addEventListener('online',function(){setSyncStatus('synced');if(currentUser)scheduleSync();});
+window.addEventListener('offline',function(){setSyncStatus('offline');});
+
 </script>
 </body>
 </html>
