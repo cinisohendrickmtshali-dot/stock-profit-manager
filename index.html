@@ -6,17 +6,27 @@
 <meta name="theme-color" content="#1e3c72">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Stock & Profit Manager · V0.5</title>
+<title>My Shop · Stock & Profit Manager V0.6</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:#f5f7fc;min-height:100vh;display:flex;justify-content:center;padding:16px}
+body{background:var(--bg);min-height:100vh;display:flex;justify-content:center;padding:16px;transition:background .3s}
 .app{max-width:1200px;width:100%}
-:root{--p:#1e3c72;--pl:#2a4a8a;--a:#0b8f5c;--as:#e6f4ed;--d:#b22234;--ds:#ffe8ec;--w:#b86b1f;--ws:#fff2e0;--ex:#6b21a8;--exs:#f3e8ff;--g1:#f0f3f9;--g2:#e1e6ef;--g6:#4f5b6b;--g8:#1e2a3a;--wt:#fff;--sh:0 4px 10px rgba(0,0,0,0.02),0 2px 4px rgba(0,0,0,0.03);--r:16px;--rs:10px}
+:root{
+  --p:#1e3c72;--pl:#2a4a8a;
+  --a:#0b8f5c;--as:#e6f4ed;
+  --d:#b22234;--ds:#ffe8ec;
+  --w:#b86b1f;--ws:#fff2e0;
+  --ex:#6b21a8;--exs:#f3e8ff;
+  --g1:#f0f3f9;--g2:#e1e6ef;--g6:#4f5b6b;--g8:#1e2a3a;
+  --wt:#fff;--bg:#f5f7fc;
+  --sh:0 4px 10px rgba(0,0,0,0.02),0 2px 4px rgba(0,0,0,0.03);
+  --r:16px;--rs:10px;
+}
 h1,h2,h3{font-weight:600}
 .hdr{margin-bottom:20px;text-align:center}
 .hdr h1{font-size:2rem;color:var(--p);display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
 .hdr h1 span{background:var(--a);color:#fff;font-size:1rem;padding:4px 12px;border-radius:40px;font-weight:500}
-.hdr p{color:var(--g6);font-size:1rem;margin-top:6px}
+.hdr .subtitle{color:var(--g6);font-size:1rem;margin-top:6px}
 .dash{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
 .stat{background:var(--wt);padding:18px 16px;border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--g2)}
 .stat .l{font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;color:var(--g6);margin-bottom:6px}
@@ -34,8 +44,8 @@ h1,h2,h3{font-weight:600}
 .fgr{display:flex;flex-direction:column;gap:4px}
 .fgr.fw{grid-column:span 2}
 .fgr label{font-size:.8rem;font-weight:600;color:var(--g6);text-transform:uppercase;letter-spacing:.3px}
-.fgr input,.fgr select{padding:12px 14px;border:1.5px solid var(--g2);border-radius:var(--rs);font-size:1rem;background:var(--wt);width:100%}
-.fgr input:focus,.fgr select:focus{outline:none;border-color:var(--pl);box-shadow:0 0 0 3px rgba(42,74,138,.1)}
+.fgr input,.fgr select{padding:12px 14px;border:1.5px solid var(--g2);border-radius:var(--rs);font-size:1rem;background:var(--wt);width:100%;color:var(--g8)}
+.fgr input:focus,.fgr select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(30,60,114,.1)}
 .pp{background:var(--as);padding:12px 16px;border-radius:var(--rs);display:flex;justify-content:space-between;align-items:center;font-weight:500;color:#0b5e3d;margin-top:6px;grid-column:span 2;font-size:1rem}
 .bg{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;grid-column:span 2}
 .btn{padding:12px 22px;border-radius:40px;border:none;font-weight:600;font-size:.95rem;cursor:pointer;background:var(--g1);color:var(--g8);display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1 0 auto}
@@ -49,13 +59,13 @@ h1,h2,h3{font-weight:600}
 .btn.sm{padding:8px 14px;font-size:.8rem;border-radius:30px;flex:0 0 auto}
 .tb{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
 .sb{display:flex;align-items:center;background:var(--wt);border:1.5px solid var(--g2);border-radius:40px;padding:4px 6px 4px 18px;flex:2 1 240px}
-.sb input{border:none;padding:10px 6px;font-size:.95rem;width:100%;background:transparent}
+.sb input{border:none;padding:10px 6px;font-size:.95rem;width:100%;background:transparent;color:var(--g8)}
 .sb input:focus{outline:none}
 .sb button{background:var(--p);color:#fff;border:none;border-radius:40px;padding:8px 20px;font-weight:500;cursor:pointer}
 .tr{overflow-x:auto;border-radius:var(--rs);border:1px solid var(--g2);background:var(--wt)}
 table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:900px}
 th{background:var(--g1);padding:14px 12px;text-align:left;font-weight:600;color:var(--g8);font-size:.8rem;text-transform:uppercase;white-space:nowrap}
-td{padding:14px 12px;border-bottom:1px solid var(--g2);vertical-align:middle}
+td{padding:14px 12px;border-bottom:1px solid var(--g2);vertical-align:middle;color:var(--g8)}
 tr:last-child td{border-bottom:none}
 .pn{font-weight:600;color:var(--g8)}
 .ct{background:var(--g1);padding:4px 10px;border-radius:30px;font-size:.75rem;font-weight:500;color:var(--g6);display:inline-block}
@@ -131,11 +141,30 @@ tr:last-child td{border-bottom:none}
 .daily-row .dval.neg{color:var(--d)}
 .csv-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .mobile-nav{display:none}
+/* Settings-specific */
+.theme-options{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:6px}
+.theme-btn{aspect-ratio:1;border-radius:12px;border:3px solid transparent;cursor:pointer;position:relative;transition:all .15s;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.theme-btn:hover{transform:scale(1.05)}
+.theme-btn.active{border-color:var(--g8);transform:scale(1.05)}
+.theme-btn.active::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-weight:900;font-size:1.5rem;text-shadow:0 2px 4px rgba(0,0,0,.5)}
+.theme-blue{background:linear-gradient(135deg,#1e3c72,#2a4a8a)}
+.theme-green{background:linear-gradient(135deg,#0b8f5c,#0a7a4e)}
+.theme-purple{background:linear-gradient(135deg,#6b21a8,#581c87)}
+.theme-orange{background:linear-gradient(135deg,#ea580c,#c2410c)}
+.theme-red{background:linear-gradient(135deg,#b22234,#8b1a2a)}
+.currency-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.currency-btn{padding:14px 8px;border-radius:12px;border:2px solid var(--g2);background:var(--wt);cursor:pointer;font-weight:700;font-size:1.1rem;transition:all .15s;color:var(--g8)}
+.currency-btn:hover{border-color:var(--p)}
+.currency-btn.active{border-color:var(--p);background:var(--g1);color:var(--p)}
+.settings-preview{background:var(--g1);padding:18px;border-radius:var(--rs);margin-bottom:18px;text-align:center}
+.settings-preview .sp-shop{font-size:1.5rem;font-weight:700;color:var(--p);margin-bottom:4px}
+.settings-preview .sp-sub{font-size:.85rem;color:var(--g6)}
+.settings-preview .sp-price{font-size:1.2rem;font-weight:700;color:var(--a);margin-top:10px}
 @media(max-width:600px){
   body{padding:0;padding-bottom:80px}
   .app{padding:12px}
   .hdr h1{font-size:1.5rem}
-  .hdr p{font-size:.85rem}
+  .hdr .subtitle{font-size:.85rem}
   .dash{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
   .stat{padding:14px 12px}
   .stat .l{font-size:.7rem}
@@ -186,12 +215,14 @@ tr:last-child td{border-bottom:none}
   .si .samt,.ei .eamt{font-size:.95rem}
   .csv-row .btn{width:100%}
   .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--wt);border-top:1px solid var(--g2);box-shadow:0 -4px 12px rgba(0,0,0,.06);z-index:900;padding-bottom:env(safe-area-inset-bottom)}
-  .mnav-btn{flex:1;background:transparent;border:none;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--g6);font-size:.7rem;font-weight:600;transition:color .15s}
+  .mnav-btn{flex:1;background:transparent;border:none;padding:10px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--g6);font-size:.65rem;font-weight:600;transition:color .15s}
   .mnav-btn.active{color:var(--p)}
-  .mnav-btn .mi2{font-size:1.4rem;line-height:1}
+  .mnav-btn .mi2{font-size:1.3rem;line-height:1}
   .section{display:none}
   .section.active{display:block}
   .ft{display:none}
+  .theme-options{grid-template-columns:repeat(5,1fr);gap:8px}
+  .currency-options{grid-template-columns:repeat(3,1fr);gap:8px}
 }
 @media(min-width:601px){.products-mobile{display:none}}
 </style>
@@ -199,13 +230,12 @@ tr:last-child td{border-bottom:none}
 <body>
 <div class="app">
 
-<!-- ========== HEADER ========== -->
 <header class="hdr">
-<h1>📦 Stock & Profit <span>V0.5</span></h1>
-<p>For spaza shops, salons, takeaways & small business</p>
+<h1>📦 <span id="hdrShopName">My Shop</span> <span style="background:var(--p);">V0.6</span></h1>
+<div class="subtitle" id="hdrSubtitle">Stock & Profit Manager</div>
 </header>
 
-<!-- ========== DASHBOARD SECTION ========== -->
+<!-- ========== DASHBOARD ========== -->
 <div class="section active" id="sec-dashboard">
 <section class="dash">
 <div class="stat"><div class="l">Total products</div><div class="v" id="totalProducts">0</div></div>
@@ -217,14 +247,13 @@ tr:last-child td{border-bottom:none}
 <div class="stat ex"><div class="l">Total expenses</div><div class="v" id="totalExpenses">R0</div></div>
 <div class="stat tp"><div class="l">True profit</div><div class="v" id="trueProfit">R0</div></div>
 </section>
-
 <div class="low">
 <div>⚠️ <span id="lowStockCount">0</span> low on stock (≤ 3)</div>
 <div class="b" id="lowStockNames">—</div>
 </div>
 </div>
 
-<!-- ========== PRODUCTS SECTION ========== -->
+<!-- ========== PRODUCTS ========== -->
 <div class="section" id="sec-products">
 <div class="card">
 <h2 id="formTitle">➕ Add new product</h2>
@@ -232,11 +261,11 @@ tr:last-child td{border-bottom:none}
 <div class="fg">
 <div class="fgr fw"><label for="productName">Product name *</label><input type="text" id="productName" placeholder="e.g. Coca-Cola 500ml" required></div>
 <div class="fgr"><label for="productCategory">Category</label><input type="text" id="productCategory" placeholder="Drinks, Snacks" list="categoryList"><datalist id="categoryList"><option value="Drinks"><option value="Snacks"><option value="Groceries"><option value="Household"><option value="Personal Care"><option value="Other"></datalist></div>
-<div class="fgr"><label for="buyingPrice">Buying price (R) *</label><input type="number" id="buyingPrice" step="0.01" min="0" placeholder="0.00" required></div>
-<div class="fgr"><label for="sellingPrice">Selling price (R) *</label><input type="number" id="sellingPrice" step="0.01" min="0" placeholder="0.00" required></div>
+<div class="fgr"><label for="buyingPrice">Buying price *</label><input type="number" id="buyingPrice" step="0.01" min="0" placeholder="0.00" required></div>
+<div class="fgr"><label for="sellingPrice">Selling price *</label><input type="number" id="sellingPrice" step="0.01" min="0" placeholder="0.00" required></div>
 <div class="fgr"><label for="quantity">Quantity in stock *</label><input type="number" id="quantity" step="1" min="0" placeholder="0" required></div>
 <div class="pp"><span>💰 Profit / unit:</span><strong id="unitProfitPreview">R0.00</strong></div>
-<div class="pp" style="background:#e6f4ed;"><span>📊 Total batch profit:</span><strong id="batchProfitPreview">R0.00</strong></div>
+<div class="pp" style="background:var(--as);"><span>📊 Total batch profit:</span><strong id="batchProfitPreview">R0.00</strong></div>
 </div>
 <div class="bg">
 <button type="submit" class="btn pri" id="submitBtn">Save product</button>
@@ -245,7 +274,6 @@ tr:last-child td{border-bottom:none}
 </div>
 </form>
 </div>
-
 <div class="card">
 <div class="tb">
 <div class="sb"><input type="text" id="searchInput" placeholder="Search products..."><button id="clearSearchBtn" type="button">Clear</button></div>
@@ -257,11 +285,11 @@ tr:last-child td{border-bottom:none}
 </table>
 </div>
 <div class="products-mobile" id="productsMobile"></div>
-<div id="emptyState" class="em" style="display:none;">No products yet. Add your first product above 👆</div>
+<div id="emptyState" class="em" style="display:none;">No products yet.</div>
 </div>
 </div>
 
-<!-- ========== SELL SECTION ========== -->
+<!-- ========== SELL ========== -->
 <div class="section" id="sec-sell">
 <div class="card">
 <h2>🛒 Quick Sell</h2>
@@ -270,7 +298,7 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<!-- ========== REPORTS SECTION ========== -->
+<!-- ========== REPORTS ========== -->
 <div class="section" id="sec-reports">
 <div class="card">
 <h2>📊 Reports</h2>
@@ -288,13 +316,10 @@ tr:last-child td{border-bottom:none}
 <div class="rep-card"><div class="rl"># Sales</div><div class="rv" id="repSaleCount">0</div></div>
 <div class="rep-card"><div class="rl">Avg. Sale</div><div class="rv" id="repAvgSale">R0.00</div></div>
 </div>
-
 <h3 style="font-size:1rem;color:var(--g8);margin-bottom:10px;">🏆 Top Products</h3>
 <div class="top-list" id="topProducts"><div class="em">No sales yet.</div></div>
-
 <h3 style="font-size:1rem;color:var(--g8);margin:18px 0 10px;">📈 Last 7 Days</h3>
 <div class="daily-list" id="dailyBreakdown"></div>
-
 <h3 style="font-size:1rem;color:var(--g8);margin:18px 0 10px;">💾 Export</h3>
 <div class="csv-row">
 <button class="btn out sm" id="exportSalesBtn" type="button">📤 Sales CSV</button>
@@ -302,18 +327,15 @@ tr:last-child td{border-bottom:none}
 <button class="btn out sm" id="exportProductsBtn" type="button">📤 Products CSV</button>
 </div>
 </div>
-
 <div class="card">
 <h2>💸 Expenses</h2>
 <form id="expenseForm">
 <div class="fg">
 <div class="fgr fw"><label for="expenseDesc">Description *</label><input type="text" id="expenseDesc" placeholder="e.g. Rent, Electricity" required></div>
 <div class="fgr"><label for="expenseCategory">Category</label>
-<select id="expenseCategory">
-<option value="Rent">Rent</option><option value="Electricity">Electricity</option><option value="Water">Water</option><option value="Transport">Transport</option><option value="Stock Purchase">Stock Purchase</option><option value="Wages">Wages</option><option value="Airtime/Data">Airtime/Data</option><option value="Other">Other</option>
-</select>
+<select id="expenseCategory"><option value="Rent">Rent</option><option value="Electricity">Electricity</option><option value="Water">Water</option><option value="Transport">Transport</option><option value="Stock Purchase">Stock Purchase</option><option value="Wages">Wages</option><option value="Airtime/Data">Airtime/Data</option><option value="Other">Other</option></select>
 </div>
-<div class="fgr"><label for="expenseAmount">Amount (R) *</label><input type="number" id="expenseAmount" step="0.01" min="0.01" placeholder="0.00" required></div>
+<div class="fgr"><label for="expenseAmount">Amount *</label><input type="number" id="expenseAmount" step="0.01" min="0.01" placeholder="0.00" required></div>
 </div>
 <div class="bg">
 <button type="submit" class="btn ex">💸 Save Expense</button>
@@ -324,11 +346,10 @@ tr:last-child td{border-bottom:none}
 <div class="sumbox"><div class="sl2">Today's expenses</div><div class="sv" id="todayExpenses">R0.00</div></div>
 <div class="sumbox neg"><div class="sl2">Today's net profit</div><div class="sv" id="todayTrueProfit">R0.00</div></div>
 </div>
-<h3 style="font-size:1rem;color:var(--g8);margin:18px 0 10px;">Expense History <span style="font-size:.75rem;color:var(--g6);font-weight:400;" id="expensesCountLabel">(0)</span></h3>
+<h3 style="font-size:1rem;color:var(--g8);margin:18px 0 10px;">History <span style="font-size:.75rem;color:var(--g6);font-weight:400;" id="expensesCountLabel">(0)</span></h3>
 <div class="sl" id="expensesList"></div>
 <button class="btn out sm" id="clearExpensesBtn" type="button" style="margin-top:10px;">🗑 Clear all expenses</button>
 </div>
-
 <div class="card">
 <h2>🧾 Sales History <span style="font-size:.75rem;color:var(--g6);font-weight:400;" id="salesCountLabel">(0)</span></h2>
 <div class="sl" id="salesList"></div>
@@ -336,27 +357,59 @@ tr:last-child td{border-bottom:none}
 </div>
 </div>
 
-<div class="ft">Data in your browser · V0.5 Mobile UI</div>
+<!-- ========== SETTINGS (V0.6 NEW) ========== -->
+<div class="section" id="sec-settings">
+<div class="card">
+<h2>⚙️ Shop Settings</h2>
+<div class="settings-preview">
+<div class="sp-shop" id="spShop">My Shop</div>
+<div class="sp-sub">Stock & Profit Manager V0.6</div>
+<div class="sp-price" id="spPrice">R100.00</div>
+</div>
+<div class="fgr fw" style="margin-bottom:18px;">
+<label for="shopNameInput">🏪 Shop Name</label>
+<input type="text" id="shopNameInput" placeholder="My Shop" maxlength="40">
+</div>
+<div class="fgr fw" style="margin-bottom:18px;">
+<label>🎨 Color Theme</label>
+<div class="theme-options" id="themeOptions">
+<button class="theme-btn theme-blue" data-theme="blue" title="Blue"></button>
+<button class="theme-btn theme-green" data-theme="green" title="Green"></button>
+<button class="theme-btn theme-purple" data-theme="purple" title="Purple"></button>
+<button class="theme-btn theme-orange" data-theme="orange" title="Orange"></button>
+<button class="theme-btn theme-red" data-theme="red" title="Red"></button>
+</div>
+</div>
+<div class="fgr fw" style="margin-bottom:18px;">
+<label>💰 Currency Symbol</label>
+<div class="currency-options" id="currencyOptions">
+<button class="currency-btn" data-currency="R">R</button>
+<button class="currency-btn" data-currency="$">$</button>
+<button class="currency-btn" data-currency="€">€</button>
+<button class="currency-btn" data-currency="£">£</button>
+<button class="currency-btn" data-currency="₦">₦</button>
+<button class="currency-btn" data-currency="KSh">KSh</button>
+</div>
+</div>
+<div class="bg" style="flex-direction:column;">
+<button class="btn pri" id="saveSettingsBtn" type="button">💾 Save Settings</button>
+<button class="btn out" id="resetSettingsBtn" type="button">🔄 Reset to Defaults</button>
+</div>
+<p style="font-size:.8rem;color:var(--g6);margin-top:14px;text-align:center;">
+Your products, sales and expenses are <strong>not affected</strong> by these settings.
+</p>
+</div>
 </div>
 
-<!-- ========== MOBILE BOTTOM NAV ========== -->
+<div class="ft">Data in your browser · V0.6 with Customization</div>
+</div>
+
 <nav class="mobile-nav">
-<button class="mnav-btn active" data-section="dashboard">
-<span class="mi2">🏠</span>
-<span>Home</span>
-</button>
-<button class="mnav-btn" data-section="products">
-<span class="mi2">📦</span>
-<span>Products</span>
-</button>
-<button class="mnav-btn" data-section="sell">
-<span class="mi2">🛒</span>
-<span>Sell</span>
-</button>
-<button class="mnav-btn" data-section="reports">
-<span class="mi2">📊</span>
-<span>Reports</span>
-</button>
+<button class="mnav-btn active" data-section="dashboard"><span class="mi2">🏠</span><span>Home</span></button>
+<button class="mnav-btn" data-section="products"><span class="mi2">📦</span><span>Products</span></button>
+<button class="mnav-btn" data-section="sell"><span class="mi2">🛒</span><span>Sell</span></button>
+<button class="mnav-btn" data-section="reports"><span class="mi2">📊</span><span>Reports</span></button>
+<button class="mnav-btn" data-section="settings"><span class="mi2">⚙️</span><span>Settings</span></button>
 </nav>
 
 <div class="mo" id="sellModal">
@@ -375,8 +428,8 @@ tr:last-child td{border-bottom:none}
 
 <script>
 (function(){
-var KP='stock_profit_manager_products',KS='stock_profit_manager_sales_v2',KE='stock_profit_manager_expenses_v3';
-var products=[],sales=[],expenses=[],editingId=null,searchTerm='',sellingProductId=null,currentPeriod='today';
+var KP='stock_profit_manager_products',KS='stock_profit_manager_sales_v2',KE='stock_profit_manager_expenses_v3',KSET='stock_profit_manager_settings_v6';
+var products=[],sales=[],expenses=[],settings={shopName:'My Shop',theme:'blue',currency:'R'},editingId=null,searchTerm='',sellingProductId=null,currentPeriod='today';
 function $(id){return document.getElementById(id);}
 var form=$('productForm'),formTitle=$('formTitle'),submitBtn=$('submitBtn'),cancelEditBtn=$('cancelEditBtn'),resetFormBtn=$('resetFormBtn');
 var nameInput=$('productName'),categoryInput=$('productCategory'),buyingInput=$('buyingPrice'),sellingInput=$('sellingPrice'),quantityInput=$('quantity');
@@ -393,12 +446,21 @@ var repSales=$('repSales'),repProfit=$('repProfit'),repExpenses=$('repExpenses')
 var topProducts=$('topProducts'),dailyBreakdown=$('dailyBreakdown'),quickSellList=$('quickSellList');
 var exportSalesBtn=$('exportSalesBtn'),exportExpensesBtn=$('exportExpensesBtn'),exportProductsBtn=$('exportProductsBtn');
 var mnavBtns=document.querySelectorAll('.mnav-btn');
+var hdrShopName=$('hdrShopName'),shopNameInput=$('shopNameInput'),themeOptions=$('themeOptions'),currencyOptions=$('currencyOptions'),saveSettingsBtn=$('saveSettingsBtn'),resetSettingsBtn=$('resetSettingsBtn'),spShop=$('spShop'),spPrice=$('spPrice');
 
-function fmt(v){return 'R'+Number(v).toFixed(2);}
+function fmt(v){return settings.currency+Number(v).toFixed(2);}
 function gid(){return Date.now().toString(36)+Math.random().toString(36).substring(2,8);}
 function todayKey(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function fmtDate(iso){var d=new Date(iso);return d.toLocaleString('en-ZA',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});}
 function esc(t){if(!t)return '';return String(t).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+
+var THEMES={
+  blue:{p:'#1e3c72',pl:'#2a4a8a',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#f5f7fc'},
+  green:{p:'#0b8f5c',pl:'#0a7a4e',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#f0fdf4'},
+  purple:{p:'#6b21a8',pl:'#581c87',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#faf5ff'},
+  orange:{p:'#ea580c',pl:'#c2410c',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#fff7ed'},
+  red:{p:'#b22234',pl:'#8b1a2a',a:'#0b8f5c',as:'#e6f4ed',ex:'#6b21a8',exs:'#f3e8ff',bg:'#fef2f2'}
+};
 
 function loadAll(){
   var p=localStorage.getItem(KP);
@@ -414,10 +476,35 @@ function loadAll(){
   }
   var s=localStorage.getItem(KS);sales=s?(JSON.parse(s)||[]):[];if(!Array.isArray(sales))sales=[];
   var e=localStorage.getItem(KE);expenses=e?(JSON.parse(e)||[]):[];if(!Array.isArray(expenses))expenses=[];
+  var st=localStorage.getItem(KSET);
+  if(st){try{var parsed=JSON.parse(st);if(parsed&&typeof parsed==='object'){settings={shopName:parsed.shopName||'My Shop',theme:parsed.theme||'blue',currency:parsed.currency||'R'};}}catch(e){}}
 }
 function saveP(){localStorage.setItem(KP,JSON.stringify(products));}
 function saveS(){localStorage.setItem(KS,JSON.stringify(sales));}
 function saveE(){localStorage.setItem(KE,JSON.stringify(expenses));}
+function saveSet(){localStorage.setItem(KSET,JSON.stringify(settings));}
+
+function applyTheme(){
+  var t=THEMES[settings.theme]||THEMES.blue;
+  document.documentElement.style.setProperty('--p',t.p);
+  document.documentElement.style.setProperty('--pl',t.pl);
+  document.documentElement.style.setProperty('--a',t.a);
+  document.documentElement.style.setProperty('--as',t.as);
+  document.documentElement.style.setProperty('--ex',t.ex);
+  document.documentElement.style.setProperty('--exs',t.exs);
+  document.documentElement.style.setProperty('--bg',t.bg);
+  var meta=document.querySelector('meta[name="theme-color"]');
+  if(meta)meta.setAttribute('content',t.p);
+  hdrShopName.textContent=settings.shopName||'My Shop';
+  document.title=settings.shopName+' · Stock & Profit Manager V0.6';
+  spShop.textContent=settings.shopName||'My Shop';
+  spPrice.textContent=settings.currency+'100.00';
+  shopNameInput.value=settings.shopName||'';
+  var tbs=themeOptions.querySelectorAll('.theme-btn');
+  for(var i=0;i<tbs.length;i++){tbs[i].classList.toggle('active',tbs[i].dataset.theme===settings.theme);}
+  var cbs=currencyOptions.querySelectorAll('.currency-btn');
+  for(var j=0;j<cbs.length;j++){cbs[j].classList.toggle('active',cbs[j].dataset.currency===settings.currency);}
+}
 
 function updDash(){
   totalP.textContent=products.length;
@@ -446,7 +533,7 @@ function updDash(){
 function renderTable(){
   var filtered=products;
   if(searchTerm.trim()){var term=searchTerm.trim().toLowerCase();filtered=products.filter(function(p){return p.name.toLowerCase().indexOf(term)>-1||(p.category||'').toLowerCase().indexOf(term)>-1;});}
-  if(filtered.length===0){tableBody.innerHTML='';productsMobile.innerHTML='';emptyState.style.display='block';emptyState.textContent=products.length===0?'No products yet. Add your first product above 👆':'No products match your search.';return;}
+  if(filtered.length===0){tableBody.innerHTML='';productsMobile.innerHTML='';emptyState.style.display='block';emptyState.textContent=products.length===0?'No products yet.':'No products match your search.';return;}
   emptyState.style.display='none';
   var html='',mhtml='';
   filtered.forEach(function(p){
@@ -459,8 +546,7 @@ function renderTable(){
     html+='<td><div class="sa"><button class="dec" data-id="'+p.id+'">−</button><span class="q">'+p.quantity+'</span><button class="inc" data-id="'+p.id+'">+</button></div></td>';
     html+='<td class="'+(ppu>=0?'tac':'tdn')+'">'+fmt(ppu)+'</td><td class="'+(tot>=0?'tac':'tdn')+'">'+fmt(tot)+'</td>';
     html+='<td><div class="ac"><button class="btn suc sm sbtn" data-id="'+p.id+'"'+(cs?'':' disabled style="opacity:0.4;"')+'>🛒</button><button class="btn out sm ebtn" data-id="'+p.id+'">✎</button><button class="btn dan sm dbtn" data-id="'+p.id+'">🗑</button></div></td></tr>';
-    mhtml+='<div class="p-card '+(low?'low':'')+'" data-id="'+p.id+'">';
-    mhtml+='<div class="p-card-top"><div><div class="p-card-name">'+esc(p.name)+'</div><div class="p-card-cat">'+esc(p.category||'—')+'</div></div></div>';
+    mhtml+='<div class="p-card '+(low?'low':'')+'"><div class="p-card-top"><div><div class="p-card-name">'+esc(p.name)+'</div><div class="p-card-cat">'+esc(p.category||'—')+'</div></div></div>';
     mhtml+='<div class="p-qty"><button class="mdec" data-id="'+p.id+'">−</button><span class="qnum">'+p.quantity+'</span><button class="minc" data-id="'+p.id+'">+</button></div>';
     mhtml+='<div class="p-card-nums"><div><div class="nlabel">Buy</div><div class="nval">'+fmt(p.buyingPrice)+'</div></div><div><div class="nlabel">Sell</div><div class="nval">'+fmt(p.sellingPrice)+'</div></div><div><div class="nlabel">Profit/u</div><div class="nval '+(ppu>=0?'pos':'neg')+'">'+fmt(ppu)+'</div></div><div><div class="nlabel">Total</div><div class="nval '+(tot>=0?'pos':'neg')+'">'+fmt(tot)+'</div></div></div>';
     mhtml+='<div class="p-card-actions"><button class="btn suc msell" data-id="'+p.id+'"'+(cs?'':' disabled style="opacity:0.4;"')+'>🛒 Sell</button><button class="btn out medit" data-id="'+p.id+'">✎</button><button class="btn dan mdel" data-id="'+p.id+'">🗑</button></div></div>';
@@ -569,6 +655,13 @@ form.addEventListener('submit',function(e){e.preventDefault();var name=nameInput
 expenseForm.addEventListener('submit',function(e){e.preventDefault();var desc=expenseDesc.value.trim();var cat=expenseCategory.value;var amt=parseFloat(expenseAmount.value);if(!desc){alert('Enter description.');return;}if(isNaN(amt)||amt<=0){alert('Amount must be > 0.');return;}expenses.push({id:gid(),description:desc,category:cat,amount:amt,timestamp:new Date().toISOString(),dateKey:todayKey()});saveE();resetExpForm();refUI();});
 periodButtons.addEventListener('click',function(e){if(!e.target.classList.contains('pbtn'))return;var btns=periodButtons.querySelectorAll('.pbtn');for(var i=0;i<btns.length;i++)btns[i].classList.remove('active');e.target.classList.add('active');currentPeriod=e.target.dataset.period;updReports();});
 mnavBtns.forEach(function(btn){btn.addEventListener('click',function(){mnavBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});var sec=$('sec-'+btn.dataset.section);if(sec)sec.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});});});
+
+themeOptions.addEventListener('click',function(e){var t=e.target.closest('.theme-btn');if(!t)return;settings.theme=t.dataset.theme;applyTheme();});
+currencyOptions.addEventListener('click',function(e){var c=e.target.closest('.currency-btn');if(!c)return;settings.currency=c.dataset.currency;applyTheme();});
+shopNameInput.addEventListener('input',function(){spShop.textContent=shopNameInput.value||'My Shop';});
+saveSettingsBtn.addEventListener('click',function(){settings.shopName=shopNameInput.value.trim()||'My Shop';saveSet();applyTheme();refUI();alert('✓ Settings saved!');});
+resetSettingsBtn.addEventListener('click',function(){if(confirm('Reset settings to defaults? Your products, sales and expenses will NOT be affected.')){settings={shopName:'My Shop',theme:'blue',currency:'R'};saveSet();applyTheme();refUI();}});
+
 exportSalesBtn.addEventListener('click',exportSales);
 exportExpensesBtn.addEventListener('click',exportExpenses);
 exportProductsBtn.addEventListener('click',exportProducts);
@@ -585,7 +678,7 @@ sellQuantity.addEventListener('input',updSellPP);
 confirmSellBtn.addEventListener('click',confirmSale);
 sellModal.addEventListener('click',function(e){if(e.target===sellModal)closeSell();});
 
-loadAll();refUI();resetF();updPP();
+loadAll();applyTheme();refUI();resetF();updPP();
 })();
 </script>
 </body>
